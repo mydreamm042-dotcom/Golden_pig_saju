@@ -2340,10 +2340,7 @@ async function loginWith(provider) {
   }
 }
 
-let _submitting = false;
-
 function renderReviewForm() {
-  if (_submitting) return;
   const area = document.getElementById('review-form-area');
   if (!area) return;
   if (!_authUser) {
@@ -2373,33 +2370,15 @@ function highlightStars(n) {
 }
 
 function submitReview() {
-  if (_submitting) return;
   const star = +document.getElementById('star-val').value;
   const content = document.getElementById('review-content').value.trim();
   if (!star) { alert('별점을 선택해주세요.'); return; }
   if (content.length < 10) { alert('10자 이상 입력해주세요.'); return; }
 
-  _submitting = true;
-  const display_name = _authUser.displayName || _authUser.email?.split('@')[0] || '익명';
-
-  // 데모 배열 맨 앞에 추가 (DB 저장 없음)
-  _DEMO_REVIEWS.unshift({
-    display_name,
-    star_rating: star,
-    content,
-    created_at: new Date().toISOString(),
-  });
-  if (_DEMO_REVIEWS.length > 10) _DEMO_REVIEWS.length = 10;
-
-  // 슬라이더 즉시 업데이트
-  _renderReviewList(_DEMO_REVIEWS);
-
-  // 완료 메시지
   const area = document.getElementById('review-form-area');
   if (area) {
     area.innerHTML = '<div style="text-align:center;padding:2rem;font-size:18px;color:var(--g2);font-weight:700;letter-spacing:2px;border:1px solid rgba(200,150,12,.3);border-radius:6px;">✓ 후기 등록 완료!<br><span style="font-size:13px;color:var(--i3);font-weight:400;letter-spacing:1px;">소중한 후기 감사합니다 🙏</span></div>';
   }
-  _submitting = false;
 }
 
 /* ── 리뷰 목록 로드 ── */
