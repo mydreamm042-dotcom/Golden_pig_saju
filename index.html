@@ -337,13 +337,13 @@ select option{background:#2A1F0E;}
 .blur-fade-wrap{position:relative;overflow:hidden;border-radius:8px;}
 .blur-fade-wrap .el-blur{-webkit-mask-image:linear-gradient(to bottom,black 0%,black 40%,transparent 90%);mask-image:linear-gradient(to bottom,black 0%,black 40%,transparent 90%);filter:blur(7px)!important;}
 
-/* ── 인라인 잠금 패널 업데이트 ── */
+/* ── 인라인 잠금 패널 ── */
 .inline-lock{background:linear-gradient(135deg,#2A1F0E 0%,#1A1208 100%);border:1px solid rgba(200,150,12,.3);border-radius:12px;padding:1.2rem 1.4rem;margin:1rem 0 1.4rem;box-shadow:0 4px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(200,150,12,.12);}
-.inline-lock-head{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#E8B84B;letter-spacing:2px;margin-bottom:.75rem;}
-.inline-lock-head svg{width:15px;height:15px;flex-shrink:0;}
-.inline-lock-list{margin:0 0 1rem 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:.45rem;}
-.inline-lock-list li{font-size:13px;color:var(--i2);padding-left:1.4rem;position:relative;line-height:1.55;}
-.inline-lock-list li::before{content:'✓';position:absolute;left:0;color:#C8960C;font-weight:700;}
+.inline-lock-head{display:flex;align-items:center;gap:.55rem;font-size:13px;color:#E8B84B;font-weight:700;letter-spacing:1.5px;margin-bottom:.9rem;}
+.inline-lock-head svg{width:18px;height:18px;flex-shrink:0;}
+.inline-lock-list{list-style:none;padding:0;margin:0 0 1rem;display:flex;flex-direction:column;gap:.5rem;}
+.inline-lock-list li{display:flex;align-items:flex-start;gap:.5rem;font-size:13px;color:#C8B084;line-height:1.45;}
+.inline-lock-list li::before{content:'✓';color:#C8960C;font-weight:700;margin-top:.05rem;flex-shrink:0;}
 .inline-lock-btn{display:block;width:100%;padding:.75rem;margin-top:1rem;background:linear-gradient(90deg,rgba(200,150,12,.18),rgba(232,184,75,.12));border:1px solid rgba(200,150,12,.45);border-radius:8px;font-family:'Noto Serif KR',serif;font-size:13px;font-weight:700;color:var(--g2);letter-spacing:3px;cursor:pointer;text-align:center;transition:background .2s,border-color .2s;}
 .inline-lock-btn:hover{background:linear-gradient(90deg,rgba(200,150,12,.3),rgba(232,184,75,.2));border-color:rgba(200,150,12,.7);}
 
@@ -392,7 +392,7 @@ select option{background:#2A1F0E;}
 
 /* ── 구매 패널 ── */
 .purchase-panel{background:linear-gradient(180deg,var(--s2) 0%,#100A03 100%);border-top:2px solid rgba(200,150,12,.35);padding:2rem 1.75rem 7rem;text-align:center;margin-bottom:0;}
-.purchase-panel.hidden{display:none;}
+.hidden{display:none;}
 .pw-lock{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(200,150,12,.35);border-radius:20px;padding:5px 18px;font-size:12px;color:var(--g);letter-spacing:3px;margin-bottom:.6rem;}
 .pw-title{font-size:21px;font-weight:700;color:var(--g2);letter-spacing:2px;margin-bottom:.4rem;line-height:1.65;}
 .pw-subtitle{font-size:13px;color:var(--i2);letter-spacing:1px;margin-bottom:1.1rem;line-height:1.7;}
@@ -407,15 +407,6 @@ select option{background:#2A1F0E;}
 @keyframes shimmer-btn{0%,100%{background-position:0%;}50%{background-position:100%;}}
 .pay-btn:hover{opacity:.9;}
 .pw-safe{font-size:11px;color:var(--i3);letter-spacing:.5px;}
-
-
-/* ── 인라인 잠금 패널 ── */
-.inline-lock{background:linear-gradient(135deg,#2A1F0E 0%,#1A1208 100%);border:1px solid rgba(200,150,12,.3);border-radius:12px;padding:1.2rem 1.4rem;margin:1rem 0 1.4rem;box-shadow:0 4px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(200,150,12,.12);}
-.inline-lock-head{display:flex;align-items:center;gap:.55rem;font-size:13px;color:#E8B84B;font-weight:700;letter-spacing:1.5px;margin-bottom:.9rem;}
-.inline-lock-head svg{width:18px;height:18px;flex-shrink:0;}
-.inline-lock-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.55rem;}
-.inline-lock-list li{display:flex;align-items:flex-start;gap:.5rem;font-size:13px;color:#C8B084;line-height:1.45;}
-.inline-lock-list li::before{content:'✓';color:#C8960C;font-weight:700;margin-top:.05rem;flex-shrink:0;}
 
 /* ── 타이밍 달력 ── */
 .timing-section{margin:1.2rem 0;}
@@ -665,7 +656,7 @@ body.has-results{padding-bottom:64px;}
   <div class="auth-modal">
     <div class="auth-modal-title">로그인</div>
     <div class="auth-modal-sub">소셜 계정으로 간편 로그인 후<br>리뷰를 남길 수 있습니다</div>
-    <button class="auth-social-btn google" onclick="loginWith('google')">
+    <button class="auth-social-btn google" onclick="loginWith()">
       <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
       Google로 계속하기
     </button>
@@ -715,7 +706,7 @@ body.has-results{padding-bottom:64px;}
     <div class="form-step active" id="step1">
       <div class="form-head">
         <div class="form-head-title">운세 풀이를 위해 프로필을 입력해주세요</div>
-        <div class="form-head-sub">"당신에게 황금돼지가 나타났다면 큰 재물복이 찾아온다는 뜻 입니다."</div>부
+        <div class="form-head-sub">"당신에게 황금돼지가 나타났다면 큰 재물복이 찾아온다는 뜻 입니다."</div>
       </div>
       <div class="form-grid">
         <div class="fg full"><label>성함</label><input type="text" id="uname" placeholder="이름을 입력하세요" autocomplete="off"></div>
@@ -879,7 +870,7 @@ body.has-results{padding-bottom:64px;}
       <!-- 게이지 -->
       <div class="divider">투자운 · 사업운 · 명예운 · 인복운</div>
       <div class="gauge-list" id="gauge-list"></div>
-      <div id="gauge-timing-section" class="hidden"></div>
+      <div id="gauge-timing-section"></div>
       <div class="inline-lock el-lock">
         <div class="inline-lock-head"><svg viewBox="0 0 24 24" fill="none" stroke="#C8960C" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>잠긴 분석 · 열람 후 공개</div>
         <ul class="inline-lock-list">
@@ -914,7 +905,7 @@ body.has-results{padding-bottom:64px;}
       <div class="rblock-eye">운명의 짝 · 일부 미리보기</div>
       <div class="pig-line reveal" style="font-size:14px;color:var(--i2);margin-bottom:1rem;line-height:1.8;">이 사주의 일간이 가장 끌리는 상대의 기운이 정해져 있다 —<br>얼굴과 직업, 만나는 시기까지 구체적으로 보인다.</div>
       <div id="match-lines"></div>
-      <div id="fate-extra-section" class="hidden"></div>
+      <div id="fate-extra-section"></div>
     </div>
 
     <!-- ④ 찾아올 위기 — 3개 공개, 2개 블러 -->
@@ -953,7 +944,7 @@ body.has-results{padding-bottom:64px;}
           </div>
           <div class="climax-row">
             <div class="climax-row-icon">💰</div>
-            <div class="climax-row-text">올해 재물운의 흐름에서 반드시 알아야 할 시기가 존재합니다. 그 시기를 놓치면 회복에 2~3년이 걸릴 수 있습니다.</div>
+            <div class="climax-row-text">올해 재물운의 흐름에서 반드시 알아야 할 문제가 존재합니다. 그 문제를 놓치면 회복에 2~3년이 걸릴 수 있습니다.</div>
             <div class="climax-row-tag">올해운세</div>
           </div>
           <div class="climax-row">
@@ -1237,7 +1228,7 @@ function genGreetingHTML(pillars, fiveCnt, gender) {
   html += makeLine(`스스로도 느끼고 있을 것이다. "다들 왜 이렇게 답답하지?" 당신은 분명히 남들보다 뛰어난 것이 있다. 하지만 당신 사주의 '이것'이 발목을 잡는다. `);
   html += makeQuote(`오행을 살펴보니 ${FIVE_KO[maxF]}(${FIVE[maxF]})의 기운이 가장 강하고, ${FIVE_KO[minF]}(${FIVE[minF]})의 기운이 가장 부족하다.`);
   html += makeLine(`${FIVE_MONEY[maxF].strong}`);
-  html += makeVoice(`"황금돼지가 당신에게 나타났다는 것은 곧 큰 재물이 들어온다는 뜻 입니다. 그 시기를 대비하고 절대 놓치지마세요." `);
+  html += makeVoice(`"이 사주에는 재물이 들어오는 시기가 분명히 존재합니다. 그 시기를 대비하고 절대 놓치지 마세요." `);
   return html;
 }
 
@@ -1255,16 +1246,16 @@ function genInvestHTML(pillars, fiveCnt) {
   const minF  = fiveCnt.indexOf(Math.min(...fiveCnt));
 
   const investStyle = {
-    0:'스스로 새로운 길을 만드는 스타일이라 창업이나 새 분야 진출에 강하다. 단, 혼자 결정하는 것을 조심하라. 믿을 수 있는 사람과 함께 움직일 때 황금돼지의 기운이 두 배가 된다.',
-    1:'사람들과 협력해서 재물을 키우는 스타일이다. 혼자 모든 것을 해결하려 하지 말고 파트너십을 적극 활용하라. 단, 계약서와 문서는 반드시 갖추어야 한다.',
-    2:'빠른 결정과 강한 실행력이 강점이다. 하지만 충동적인 투자는 절대 금물이다. 결정하기 전 반드시 하루 이상 생각하는 습관을 들여라.',
+    0:'스스로 새로운 길을 만드는 스타일이라 창업이나 새 분야 진출에 강하다. 단, 인간관계를 허투루 하지 마라. 당신의 사주는 인간관계에서 얻는 게 많은 사주이다.',
+    1:'사람들과 협력해서 재물을 키우는 스타일이다. 혼자 모든 것을 해결하려 하지 말고 파트너십을 적극 활용하라. 단, 계약서와 문서 같은 법률 문서를 조심하라.',
+    2:'빠른 결정과 강한 실행력이 강점이다. 하지만 충동적인 투자는 절대 금물이다. 충동적인 결정을 멀리하라.',
     3:'직관이 뛰어나서 시장의 흐름을 먼저 읽는 편이다. 그 직관을 믿되, 논리적으로도 확인하라.',
-    4:'안정적이고 꾸준한 투자가 이 사주에 잘 맞다. 부동산·실물 자산이 특히 잘 맞는다. 갑작스러운 변화보다 오래 보는 시각으로 움직여라.',
-    5:'꼼꼼한 분석력이 강점이다. 투자 전 충분히 조사하고 확인하면 실수가 크게 줄어든다. 다만 너무 신중한 나머지 좋은 기회를 놓치는 것을 조심하라.',
+    4:'안정적이고 꾸준한 투자가 이 사주에 잘 맞다. 부동산·실물 자산이 특히 잘 맞는다. 갑작스러운 변화보다 멀리 보는 시각으로 움직여라.',
+    5:'꼼꼼한 분석력이 강점이다. 투자 전 충분히 조사하고 확인하면 실수가 크게 줄어든다. 다만 기회가 왔을 땐 당신의 감을 믿고 저질러라.',
     6:'결단력과 실행력이 뛰어나 사업 추진에 강하다. 원칙을 지키되 필요할 때 타협할 줄 아는 유연함을 길러라.',
     7:'분석과 완벽주의가 강점이지만, 그것이 실행을 막을 수 있다. 80% 준비가 되었다면 움직여라. 나머지 20%는 경험으로 채워라.',
-    8:'넓은 시야와 유연한 생각이 강점이다. 다양한 분야를 두루 살피는 능력이 있지만, 한 가지에 집중하는 힘을 키우면 재물운이 더 크게 열린다.',
-    9:'섬세한 감각으로 트렌드를 읽는 능력이 있다. 그 감각을 재물과 연결하는 구체적인 실행 계획이 필요하다. 아이디어는 충분하다. 지금 필요한 것은 행동이다.',
+    8:'넓은 시야와 유연한 생각이 강점이다. 다양한 분야를 두루 살피는 능력이 있지만, 한 가지 정도는 끝을 보아라',
+    9:'섬세한 감각으로 트렌드를 읽는 능력이 있다. 그 감각을 재물과 연결하는 구체적인 실행 계획이 필요하다. 당신은 아이디어는 충분하다. 지금 필요한 것은 행동이다.',
   };
 
   let html = '';
@@ -1272,20 +1263,20 @@ function genInvestHTML(pillars, fiveCnt) {
   html += makeLine(investStyle[dayCG]);
   html += makeQuote(`${FIVE_KO[maxF]}(${FIVE[maxF]})이(가) 강하고 ${FIVE_KO[minF]}(${FIVE[minF]})이(가) 부족하다. 이것이 지금 그대의 재물 상황이다.`);
   html += makeLine(`${FIVE_KO[minF]}(${FIVE[minF]}) 기운이 부족한 것이 지금 재물운에서 꼭 보완해야 할 부분이다.`);
-  html += makeVoice(`위 자신의 약점을 알고 빠르게 보완하세요.`);
+  html += makeVoice(`내 사주가 가진 약점을 알고 미리 대비하라.`);
   return html;
 }
 
 const APTITUDE_BY_CG = {
   0:`당신은 타고난 선구자입니다. 남들이 망설이는 자리에서 먼저 발을 내딛는 용기가 있고, 그 용기가 곧 당신의 가장 큰 자산입니다. 리더십과 추진력이 강해 조직이나 사업의 앞자리에 서면 자연스럽게 사람들이 따릅니다. 새로운 분야를 개척하거나 기존 틀을 깨는 일에서 실력이 두드러지며, 반복적이고 틀에 박힌 환경에서는 능력이 반감됩니다. 독립적으로 판단하고 움직이는 구조가 맞기 때문에, 자율성이 보장된 자리일수록 성과가 높아집니다. 말과 행동에서 강한 신뢰감을 주는 성향이라 사람들이 어려운 순간에 당신을 먼저 찾습니다. 재물은 이 리더십을 직업으로 연결할 때 가장 빠르게 따라옵니다.`,
   1:`당신은 사람과 사람 사이를 연결하는 능력이 탁월합니다. 상대의 감정을 빠르게 읽고, 필요한 말을 적절한 타이밍에 건네는 섬세함이 있습니다. 경쟁보다 협력이 맞는 환경에서 진짜 실력이 나오며, 혼자 앞서 나가는 것보다 함께 성장하는 구조에서 빛납니다. 교육·상담·기획처럼 사람의 변화를 이끄는 분야에서 강점이 극대화됩니다. 유연한 적응력 덕분에 새로운 환경에도 빠르게 자리를 잡고, 주변 관계를 부드럽게 유지하는 능력이 장기적인 성과로 이어집니다. 감각적인 안목도 뛰어나 디자인·브랜딩 분야에서도 두각을 나타냅니다. 재물은 사람과의 신뢰를 쌓는 일에서 자연스럽게 따라옵니다.`,
-  2:`당신은 어디서든 존재감이 뚜렷한 사람입니다. 앞에 나서는 것을 두려워하지 않고, 표현력과 언변이 뛰어나 사람들의 시선을 끄는 힘이 있습니다. 열정적인 에너지가 주변에 전달되기 때문에 영업·방송·강연처럼 사람 앞에 서는 직업에서 재능이 폭발합니다. 빠른 판단력과 즉흥적인 실행력이 강점이라 기획이나 현장 대응이 필요한 역할에 잘 맞습니다. 한 가지 일에 꾸준히 집중하기보다 다양한 자극이 있는 환경에서 창의력이 살아납니다. 사람들에게 영감을 주는 역할을 맡을수록 재물과 명성이 함께 따라옵니다. 무대 위에 서는 것을 즐길수록 황금돼지의 기운도 더 강하게 움직입니다.`,
+  2:`당신은 어디서든 존재감이 뚜렷한 사람입니다. 앞에 나서는 것을 두려워하지 않고, 표현력과 언변이 뛰어나 사람들의 시선을 끄는 힘이 있습니다. 열정적인 에너지가 주변에 전달되기 때문에 영업·방송·강연처럼 사람 앞에 서는 직업에서 재능이 폭발합니다. 빠른 판단력과 즉흥적인 실행력이 강점이라 기획이나 현장 대응이 필요한 역할에 잘 맞습니다. 한 가지 일에 꾸준히 집중하기보다 다양한 자극이 있는 환경에서 창의력이 살아납니다. 사람들에게 영감을 주는 역할을 맡을수록 재물과 명성이 함께 따라옵니다. 무대 위에 서는 것을 즐길수록 재물운도 더 강하게 움직입니다.`,
   3:`당신은 한 분야를 깊이 파고드는 집중력이 남다릅니다. 겉으로 드러내지 않아도 내면에 치밀한 관찰력과 분석력을 갖추고 있어, 시간이 지날수록 실력이 증명되는 유형입니다. 직관이 예리해 남들이 보지 못하는 본질을 빠르게 파악하며, 연구·의료·집필처럼 깊이를 요구하는 분야에서 두각을 나타냅니다. 소수의 신뢰할 수 있는 관계 속에서 일할 때 안정감이 생기고, 결과물의 완성도가 높아집니다. 정성과 진정성을 바탕으로 하는 일에서 장기적으로 높은 평가를 받으며, 꾸준한 노력이 어느 순간 크게 빛나는 구조입니다. 조용하지만 한번 인정받으면 오래가는 신뢰가 당신의 가장 큰 자산입니다. 재물은 전문성을 쌓는 길에서 가장 단단하게 켜입니다.`,
   4:`당신은 안정감과 신뢰감으로 사람들을 끌어당기는 힘이 있습니다. 감정에 흔들리지 않고 묵직하게 자리를 지키는 성향이라 조직 내에서 없어서는 안 되는 존재로 자리 잡습니다. 부동산·금융·경영처럼 실물과 기반을 다루는 분야에서 판단력이 빛나며, 장기적인 안목으로 움직이는 전략적 사고가 강점입니다. 사람들이 믿고 맡기는 자리에 있을 때 재물과 명성이 동시에 쌓입니다. 빠른 변화보다 차근차근 쌓아가는 방식이 맞기 때문에, 처음에는 느려 보여도 결국 가장 멀리 가는 유형입니다. 팀이나 조직을 지탱하는 역할에서 진짜 능력이 나타납니다. 신뢰를 직업으로 만드는 것이 이 사주가 재물을 여는 열쇠입니다.`,
   5:`당신은 꼼꼼함과 실용적인 판단력이 뛰어난 사람입니다. 남들이 그냥 지나치는 디테일을 잡아내는 능력이 있어, 정확성이 요구되는 분야에서 독보적인 실력을 발휘합니다. 회계·의료·행정처럼 실수가 허용되지 않는 분야에서 가장 높은 신뢰를 얻으며, 체계적으로 일을 처리하는 능력이 직업적 경쟁력이 됩니다. 책임감이 강해 맡은 일은 반드시 끝내는 성향이고, 이 신뢰가 쌓이면 더 큰 기회로 이어집니다. 혼자 묵묵히 성과를 만들어내는 스타일이라 처음에는 주목받지 못해도, 결국 실력으로 인정받는 길을 걷습니다. 현실적인 감각으로 불필요한 낭비를 줄이는 것도 이 사주의 강점입니다. 재물은 꾸준함과 정확함이 쌓일수록 더 안정적으로 늘어납니다.`,
   6:`당신은 결단력과 실행력이 탁월한 사람입니다. 원칙을 중시하고 흔들리지 않는 기준을 가지고 있어, 법·군·투자처럼 명확한 판단이 요구되는 분야에서 강점이 극대화됩니다. 한번 방향을 정하면 끝까지 밀어붙이는 추진력이 있고, 어려운 결정 앞에서도 흔들리지 않는 담대함이 주변 사람들에게 신뢰를 줍니다. 공정하고 원칙적인 태도로 일하기 때문에 장기적으로 높은 평판을 쌓으며, 그 평판이 새로운 기회를 계속 만들어냅니다. 강한 추진력 덕분에 초반에 성과를 빠르게 만들어내는 능력이 있습니다. 감정보다 논리로 움직이는 스타일이라 협상과 계약 자리에서도 유리한 위치를 차지합니다. 재물은 원칙을 지키는 태도가 쌓일수록 더 단단해집니다.`,
   7:`당신은 분석력과 완벽을 추구하는 예리한 감각이 강점입니다. 어떤 일이든 철저하게 준비하고 검토하는 성향이라 완성도 높은 결과물을 만들어내는 데 탁월합니다. 세밀한 안목 덕분에 보석·디자인·데이터처럼 정밀함이 요구되는 분야에서 독보적인 실력을 발휘합니다. 기준이 높고 꼼꼼하기 때문에 한번 신뢰를 얻으면 그 신뢰가 오래 유지됩니다. 직접 눈으로 보고 확인하는 능력이 뛰어나 감정사·큐레이터·외과의처럼 전문적인 안목이 필요한 직업과도 잘 맞습니다. 스스로의 기준을 유지하면서도 협력하는 능력을 키우면 재물운이 크게 열립니다. 완벽을 향해 나아가는 과정 자체가 당신의 가장 큰 경쟁력입니다.`,
-  8:`당신은 넓은 시야와 유연한 사고로 다양한 분야를 넘나드는 능력이 있습니다. 트렌드와 정보를 빠르게 흡수하고 연결하는 능력이 탁월해, 무역·외교·IT처럼 복합적인 사고가 필요한 분야에서 빛납니다. 새로운 환경에 적응하는 속도가 빠르고 다양한 사람들과 쉽게 관계를 맺는 능력이 있어, 국제적이거나 다문화적인 환경에서도 능력을 발휘합니다. 큰 그림을 보는 전략적 사고가 강해, 장기 프로젝트나 복잡한 문제를 해결하는 역할에서 강점이 드러납니다. 지적 호기심이 강해 꾸준히 배우고 성장하는 것 자체가 경쟁력이 됩니다. 한 분야에 깊이를 더하는 전문성을 쌓으면 재물운이 훨씬 강하게 열립니다. 지식과 경험이 쌓일수록 황금돼지의 기운이 더 선명하게 움직입니다.`,
+  8:`당신은 넓은 시야와 유연한 사고로 다양한 분야를 넘나드는 능력이 있습니다. 트렌드와 정보를 빠르게 흡수하고 연결하는 능력이 탁월해, 무역·외교·IT처럼 복합적인 사고가 필요한 분야에서 빛납니다. 새로운 환경에 적응하는 속도가 빠르고 다양한 사람들과 쉽게 관계를 맺는 능력이 있어, 국제적이거나 다문화적인 환경에서도 능력을 발휘합니다. 큰 그림을 보는 전략적 사고가 강해, 장기 프로젝트나 복잡한 문제를 해결하는 역할에서 강점이 드러납니다. 지적 호기심이 강해 꾸준히 배우고 성장하는 것 자체가 경쟁력이 됩니다. 한 분야에 깊이를 더하는 전문성을 쌓으면 재물운이 훨씬 강하게 열립니다. 지식과 경험이 쌓일수록 재물운이 더 선명하게 열립니다.`,
   9:`당신은 섬세한 감수성과 날카로운 직관으로 사람의 마음을 읽는 능력이 뛰어납니다. 트렌드를 누구보다 먼저 감지하고, 그 감각을 표현으로 연결하는 창의력이 강점입니다. 예술·음악·상담처럼 감성이 직업이 되는 분야에서 재능이 폭발하며, 사람의 내면을 다루는 일에서 깊은 신뢰를 받습니다. 공감 능력이 높아 주변 사람들이 자연스럽게 속마음을 털어놓고, 그 관계가 장기적인 인복으로 이어집니다. 감각적인 안목이 뛰어나 스타일링·뷰티·콘텐츠 분야에서도 독창적인 결과물을 만들어냅니다. 직관을 믿고 행동으로 옮기는 결단력을 키우면 재물운이 빠르게 열립니다. 당신의 감성이 세상과 만나는 접점이 곧 재물의 통로입니다.`,
 };
 
@@ -1303,7 +1294,7 @@ function genJobAfterHTML(pillars, fiveCnt) {
   const maxF = fiveCnt.indexOf(Math.max(...fiveCnt));
   let html = '';
   html += makeLine(`${JOB_BY_FIVE[maxF]}`);
-  html += makeVoice(`재물은 잘 맞는 일에서 가장 빠르게 불어난다. 억지로 버티는 자리에서는 황금돼지의 기운도 들어오지 못한다.`);
+  html += makeVoice(`재물은 잘 맞는 일에서 가장 빠르게 불어난다. 억지로 버티는 자리에서는 재물이 들어오지 못한다.`);
   return html;
 }
 
@@ -1311,9 +1302,9 @@ function genSuccessText(pillars, fiveCnt) {
   const dayCG = pillars[2].cg;
   const nat   = CG_NATURE[dayCG];
   const successKey = {
-    0:`당신의 성공은 새로운 길을 여는 데 있습니다.\n\n남들이 가지 않은 길을 먼저 가는 용기가 이 사주의 핵심입니다. 혼자 가는 것보다 한 명의 믿을 수 있는 동료와 함께 갈 때 그 힘이 배가됩니다.\n\n엄선비도 황금돼지를 혼자 발견했지만, 그 복을 나누며 더 큰 세상을 얻었습니다.`,
+    0:`당신의 성공은 새로운 길을 여는 데 있습니다.\n\n남들이 가지 않은 길을 먼저 가는 용기가 이 사주의 핵심입니다. 혼자 가는 것보다 한 명의 믿을 수 있는 동료와 함께 갈 때 그 힘이 배가됩니다.\n\n혼자 가는 것보다 나눌 줄 아는 사람이 결국 더 큰 세상을 얻습니다.`,
     1:`당신의 성공은 사람들과의 협력에서 나옵니다.\n\n유연하게 상황에 적응하며 주변 사람들과 함께 성장하는 것이 이 사주의 성공 방정식입니다.\n\n강한 나무가 폭풍에 부러질 때, 풀은 휘어지며 살아남습니다. 당신의 유연함이 바로 그 힘입니다.`,
-    2:`당신의 성공은 표현력과 이끄는 힘에서 나옵니다.\n\n당신이 앞에 서면 사람들이 따릅니다. 그 에너지를 일관된 방향으로 집중시키십시오.\n\n태양은 매일 같은 방향에서 뜹니다. 그 일관성이 황금돼지의 기운과 잘 맞습니다.`,
+    2:`당신의 성공은 표현력과 이끄는 힘에서 나옵니다.\n\n당신이 앞에 서면 사람들이 따릅니다. 그 에너지를 일관된 방향으로 집중시키십시오.\n\n태양은 매일 같은 방향에서 뜹니다. 그 일관성이 이 사주의 재물운과 잘 맞습니다.`,
     3:`당신의 성공은 깊이와 집중력에서 나옵니다.\n\n한 분야를 파고드는 힘이 뛰어납니다. 촛불은 작지만 어둠을 밝힙니다.\n\n당신의 집중된 에너지가 결국 세상을 밝히는 날이 옵니다. 그 날을 위해 지금의 불꽃을 꺼트리지 마십시오.`,
     4:`당신의 성공은 신뢰와 안정에서 나옵니다.\n\n큰 산처럼 흔들리지 않는 존재가 되십시오. 사람들이 당신을 찾아오는 이유는 당신이 믿을 수 있기 때문입니다.\n\n그 신뢰가 곧 재물입니다.`,
     5:`당신의 성공은 꼼꼼함과 실행력에서 나옵니다.\n\n남들이 놓치는 디테일을 잡아내는 능력이 이 사주의 강점입니다. 기름진 밭은 씨앗을 품고 키웁니다.\n\n당신 곁에 있는 사람들을 키우십시오. 그것이 이 사주의 성공 방식입니다.`,
@@ -1331,10 +1322,10 @@ function genGeneralText(pillars, fiveCnt) {
     0:`목(木) 기운이 강한 사주는 재물이 꾸준히 성장하는 형태로 찾아옵니다.\n\n갑자기 터지는 갑자기 생기는 큰돈보다 씨앗을 심고 키우듯 천천히 쌓이는 재물운입니다. 서두르지 마십시오. 지금 심는 것이 반드시 자랍니다.`,
     1:`화(火) 기운이 강한 사주는 사람을 통해 재물이 흐릅니다.\n\n사람 관계에 투자하는 것이 가장 확실한 재테크입니다. 당신의 열정과 표현력이 재물을 끌어당기는 자석입니다.`,
     2:`토(土) 기운이 강한 사주는 실물 자산과 부동산 분야에서 재물운이 강합니다.\n\n화려한 투자보다 눈에 보이고 손에 잡히는 것에 집중하십시오. 조용히 쌓는 것이 이 사주의 재물 방식입니다.`,
-    3:`금(金) 기운이 강한 사주는 집중력과 절제로 재물을 다룹니다.\n\n여러 곳에 나눠 투자하는 것보다 한 곳에 집중해서 투자하는 게 맞습니다. 단, 한 번 결정했으면 흔들리지 마십시오. 황금돼지의 기운은 원칙을 지키는 자와 함께합니다.`,
+    3:`금(金) 기운이 강한 사주는 집중력과 절제로 재물을 다룹니다.\n\n여러 곳에 나눠 투자하는 것보다 한 곳에 집중해서 투자하는 게 맞습니다. 단, 한 번 결정했으면 흔들리지 마십시오. 재물은 원칙을 지키는 자 곁에 머뭅니다.`,
     4:`수(水) 기운이 강한 사주는 정보와 지혜로 재물을 다룹니다.\n\n트렌드를 남보다 먼저 읽는 능력이 있습니다. 그 감각을 믿되, 실행에 옮기는 결단력을 길러야 합니다.`,
   };
-  return `${generalByFive[maxF]}\n\n재물을 잘 다루는 것은 기술이 아니라 태도입니다. 재물을 소중히 여기고 올바르게 사용하는 태도 — 이 태도가 황금돼지의 기운과 잘 맞습니다.`;
+  return `${generalByFive[maxF]}\n\n재물을 잘 다루는 것은 기술이 아니라 태도입니다. 재물을 소중히 여기고 올바르게 사용하는 태도 — 이 태도가 재물운을 여는 열쇠입니다.`;
 }
 
 function genWarnText(pillars, fiveCnt) {
@@ -1344,11 +1335,11 @@ function genWarnText(pillars, fiveCnt) {
     0:'당신의 가장 큰 약점은 고집과 혼자 결정하는 것입니다.\n\n주변의 조언을 무시하다가 혼자 큰 손실을 보는 패턴을 경계하십시오. 특히 새로운 사업 진출 시 신뢰할 수 있는 사람의 검토를 반드시 거치십시오.',
     1:'당신의 재물운에서 가장 큰 위협은 남의 부탁을 거절 못하는 성향입니다.\n\n보증·연대보증은 절대 서지 마십시오. 정으로 맺어진 금전 거래는 정도 재물도 잃는 결과를 낳습니다.',
     2:'당신에게 위험한 것은 충동과 너무 빠른 결정입니다.\n\n흥분 상태에서 내리는 투자 결정은 반드시 24시간 후에 재검토하십시오. 빠른 결정이 큰 손실로 이어지는 패턴이 자주 나타납니다.',
-    3:'당신에게 위험한 것은 집착과 예민함입니다.\n\n손실이 생겼을 때 만회하려는 조급함이 더 큰 손실을 부릅니다. 손실은 인정하고 놓아주십시오. 황금돼지의 기운은 집착을 놓은 자에게 다시 찾아옵니다.',
+    3:'당신에게 위험한 것은 집착과 예민함입니다.\n\n손실이 생겼을 때 만회하려는 조급함이 더 큰 손실을 부릅니다. 손실은 인정하고 놓아주십시오. 집착을 놓아야 새로운 재물의 길이 열립니다.',
     4:'당신에게 위험한 것은 변화를 거부하는 것과 고집입니다.\n\n세상이 바뀌고 있는데 혼자만 멈춰 서 있으면 재물도 멈춥니다. 안정을 추구하되 변화를 수용하는 유연성을 기르십시오.',
     5:'당신에게 위험한 것은 지나친 걱정과 소심함입니다.\n\n좋은 기회가 와도 확신이 없어 놓치는 패턴을 경계하십시오. 충분히 분석했다면 그다음은 실행입니다. 완벽한 타이밍은 오지 않습니다.',
     6:'당신에게 위험한 것은 타협 거부와 차가운 태도입니다.\n\n원칙은 중요하지만 그것이 인간관계를 해치면 재물운도 닫힙니다. 강하되 유연하게, 원칙을 지키되 사람을 잃지 마십시오.',
-    7:'당신에게 위험한 것은 완벽주의로 실행을 계속 미루는 것입니다.\n\n준비가 90%가 되어도 10%가 부족하다고 계속 미루는 패턴을 경계하십시오. 황금돼지는 완벽한 자가 아니라 움직이는 자를 선택합니다.',
+    7:'당신에게 위험한 것은 완벽주의로 실행을 계속 미루는 것입니다.\n\n준비가 90%가 되어도 10%가 부족하다고 계속 미루는 패턴을 경계하십시오. 재물운은 완벽한 자가 아니라 움직이는 자에게 찾아옵니다.',
     8:'당신에게 위험한 것은 집중력 부족과 여기저기 손 대는 것입니다.\n\n이것저것 동시에 건드리다가 하나도 제대로 못 하는 패턴을 경계하십시오. 지금 당장 한 가지를 선택하고 집중하십시오.',
     9:'당신에게 위험한 것은 소극적인 태도와 의심입니다.\n\n좋은 기회를 "혹시 아닐까"라고 의심하다 놓치는 패턴이 자주 나타납니다. 직관을 믿고 움직이는 훈련이 필요합니다.',
   };
@@ -1377,16 +1368,14 @@ function genYearText(pillars, fiveCnt) {
 }
 
 const LUCKY_TEXTS = [
-  '황금돼지 설화에서 비롯된 행운 아이템들이다. 미신이 아니라, 길을 잃었을 때 마음을 다잡는 도구로 활용하라.',
-  '당신의 사주와 황금돼지의 기운이 잘 맞는 아이템들이다. 가까이 두거나 자주 보는 것만으로도 마음이 달라진다.',
-  '이 아이템들은 재물운을 부르는 것이 아니라, 이미 있는 기운을 깨워주는 역할을 한다.',
+  '당신의 사주 기운과 잘 맞는 아이템들이다. 항상 가까이 두거 지니고 다녀라. 당신에게 재물이 찾아올 것 이다.',
 ];
 
 const LUCKY_POOL = [
-  '황금색 지갑','돼지 저금통','오행: 금(金)','방향: 서방','행운수: 8',
-  '보석: 황금','행운색: 황금색','행운일: 기해일','시간대: 오시','식물: 국화',
+  '적색 지갑','돼지 저금통','오행: 금(金)','방향: 서방','행운수: 8',
+  '보석: 황금','행운색: 노란색','행운일: 기해일','시간대: 오시','식물: 국화',
   '행운수: 3','동반자: 돼지띠','음식: 꿀','방향: 북방','행운색: 적색',
-  '음식: 삼겹살','숫자: 6·8·9','보석: 호박',
+  '음식: 삼겹살','행운수: 6','보석: 호박',
 ];
 
 /* ══ 대운 계산 ══ */
@@ -1435,7 +1424,7 @@ function calcYongshin(pillars, fiveCnt) {
 /* ══ 운명의 짝 실제 이미지 ══ */
 const _BASE = 'https://raw.githubusercontent.com/mydreamm042-dotcom/lililili/main/images/';
 const FATE_IMGS_F = ['w_image1.jpg','w_image2.jpg','w_image3.png','w_image4.png','w_image5.jpg','w_image6.jpg','w_image7.png','w_image8.png','w_image9.png','w_image10.png'];
-const FATE_IMGS_M = ['m_image1.png','m_image2.png','m_image3.png','m_image4.png','m_image5.png','m_image6.png','m_image7.png','m_image8.png','m_iamge9.png','m_image10.png'];
+const FATE_IMGS_M = ['m_image1.png','m_image2.png','m_image3.png','m_image4.png','m_image5.png','m_image6.png','m_image7.png','m_image8.png','m_image9.png','m_image10.png'];
 
 /* ══ 운명의 짝 데이터 ══ */
 const FATE_BY_CG = {
@@ -1474,7 +1463,7 @@ const CRISIS_BY_CG = {
 
 /* ══ 위기 확장 메타 ══ [시기, 기간, 대처법, 반등] ×5 per daymaster */
 const CRISIS_META_BY_CG = {
-  0:[['34~38세','1~2년','결정 전 신뢰하는 2인 이상과 반드시 상의하는 규칙을 만드십시오','인맥 회복의 첫 연락이 예상보다 훨씬 큰 새 기회를 만들어 줍니다'],['38~45세','2~3년','확장 결정 전 현금 흐름 6개월치를 먼저 확인하십시오','한 번 실패한 분야를 다시 공략할 때 황금돼지의 기운이 두 배로 동반됩니다'],['50대 초반','3년+','30대부터 주 3회 이상 몸을 쓰는 운동을 루틴화하십시오','건강 회복 이후 오히려 더 큰 도약의 기반이 만들어집니다'],['40대 중반','약 2년','동반자를 당연하게 여기지 말고 정기적으로 감사를 표현하십시오','혼자 일어서는 힘을 키운 뒤 더 나은 동반자를 만나게 됩니다'],['40대 후반','지속적','월 1회 가정에 온전히 집중하는 시간을 의도적으로 만드십시오','균형을 찾은 이후 재물운과 가정운이 함께 상승하는 구조입니다']],
+  0:[['34~38세','1~2년','결정 전 신뢰하는 2인 이상과 반드시 상의하는 규칙을 만드십시오','인맥 회복의 첫 연락이 예상보다 훨씬 큰 새 기회를 만들어 줍니다'],['38~45세','2~3년','확장 결정 전 현금 흐름 6개월치를 먼저 확인하십시오','한 번 실패한 분야를 다시 공략할 때 오히려 더 강한 도약의 기운이 동반됩니다'],['50대 초반','3년+','30대부터 주 3회 이상 몸을 쓰는 운동을 루틴화하십시오','건강 회복 이후 오히려 더 큰 도약의 기반이 만들어집니다'],['40대 중반','약 2년','동반자를 당연하게 여기지 말고 정기적으로 감사를 표현하십시오','혼자 일어서는 힘을 키운 뒤 더 나은 동반자를 만나게 됩니다'],['40대 후반','지속적','월 1회 가정에 온전히 집중하는 시간을 의도적으로 만드십시오','균형을 찾은 이후 재물운과 가정운이 함께 상승하는 구조입니다']],
   1:[['30대 초중반','2~3년','보증·연대채무는 절대 서지 않는 원칙을 지금 당장 세우십시오','손실 이후 관계를 정리하고 새로운 시작이 더 탄탄해집니다'],['30대 후반','1~2년','부탁을 거절하는 연습을 매일 의식적으로 반복하십시오','에너지를 나를 위해 쓰기 시작하면 빠르게 회복됩니다'],['40대','약 2년','타인에게 기대는 습관을 인식하고 스스로 결정하는 훈련을 하십시오','의존에서 벗어난 이후 오히려 더 좋은 인연이 찾아옵니다'],['40대 중반','1~2년','금전 거래는 관계와 완전히 분리하는 원칙을 지키십시오','관계 정리 후 진짜 인연이 남아 더 강한 인복이 만들어집니다'],['30대 후반~40대','지속적','타인의 평가보다 스스로의 기준을 세우는 훈련을 하십시오','자존감이 회복되면 재물운과 인복이 동시에 열립니다']],
   2:[['28~35세','약 1년','흥분 상태의 결정은 반드시 24시간 후 재검토하는 원칙을 세우십시오','실패 교훈을 적용해 움직이면 더 빠른 회복이 따라옵니다'],['30대','2~3년','지출의 70%는 재물을 만드는 것에, 30%만 보여주는 것에 쓰십시오','절약 습관이 자리 잡은 이후 오히려 더 큰 재물이 따라옵니다'],['35~40세','1~2년','말보다 행동으로 증명하는 패턴을 의식적으로 만드십시오','신뢰 회복 후 관계와 사업운이 동시에 열립니다'],['30~35세','1~2년','결정 전 임팩트를 세 가지 이상 적어보는 습관을 기르십시오','손실 경험이 더 날카로운 판단력을 만드는 토대가 됩니다'],['30대 후반','1~2년','에너지 분산을 막기 위해 현재 진행 중인 것을 목록화하십시오','집중력을 회복한 이후 성과가 빠르게 따라옵니다']],
   3:[['35~42세','2~3년','손실 발생 시 24시간 내에 손절 기준을 실행하는 원칙을 세우십시오','집착을 놓은 직후 예상치 못한 새 기회가 찾아옵니다'],['30대 중반','1~2년','예민함이 올라올 때 말 대신 글로 먼저 정리하는 습관을 기르십시오','관계 위기 후 남은 인연이 더 강한 귀인이 됩니다'],['40대','약 2년','월 1회 외부 모임이나 새로운 환경에 의도적으로 나가십시오','정보 차단에서 벗어나면 빠른 회복과 도약이 동시에 찾아옵니다'],['40대 초중반','약 3년','손절 기준을 미리 정하고 그 기준 도달 시 즉시 실행하십시오','큰 손실 이후 더 신중한 판단력이 생기는 전환점이 됩니다'],['30대 후반~40대','지속적','결정 마비가 올 때 신뢰하는 1명에게 의견을 구하는 루틴을 만드십시오','내면 갈등이 해소되면 더 명쾌한 결단력이 생겨납니다']],
@@ -1488,7 +1477,7 @@ const CRISIS_META_BY_CG = {
 
 /* ══ 게이지 설명 ══ */
 const GAUGE_DESC_BY_CG = {
-  0:{invest:'개척형 투자가 잘 맞습니다. 새로운 분야에 먼저 진입하는 투자에서 황금돼지의 기운이 가장 강하게 움직입니다. 혼자 결정보다 믿는 파트너와 함께 움직이면 수익률이 두 배가 됩니다.',biz:'기존 사업 확장보다 새로운 시장 개척에서 더 큰 수익이 따릅니다. 처음 발을 들이는 분야에서 이 사주의 사업운이 폭발합니다.',fame:'리더 자리에서 이름이 알려지는 구조입니다. 팀의 뒤보다 앞에 설 때, 직장보다 독립할 때 명예운이 열립니다.',people:'강한 존재감이 귀인을 자연스럽게 끌어당깁니다. 새로운 공간에 뛰어들수록 인복의 문이 넓어집니다.'},
+  0:{invest:'개척형 투자가 잘 맞습니다. 새로운 분야에 먼저 진입하는 투자에서 이 사주의 재물운이 가장 강하게 움직입니다. 혼자 결정보다 믿는 파트너와 함께 움직이면 수익률이 두 배가 됩니다.',biz:'기존 사업 확장보다 새로운 시장 개척에서 더 큰 수익이 따릅니다. 처음 발을 들이는 분야에서 이 사주의 사업운이 폭발합니다.',fame:'리더 자리에서 이름이 알려지는 구조입니다. 팀의 뒤보다 앞에 설 때, 직장보다 독립할 때 명예운이 열립니다.',people:'강한 존재감이 귀인을 자연스럽게 끌어당깁니다. 새로운 공간에 뛰어들수록 인복의 문이 넓어집니다.'},
   1:{invest:'협력과 네트워크를 통한 투자가 잘 맞습니다. 혼자보다 믿는 사람과 함께 움직일 때 수익률이 높아집니다. 단, 계약서는 항상 갖추십시오.',biz:'파트너십과 공동 사업에서 사업운이 극대화됩니다. 사람과의 연결망이 이 사주의 가장 큰 사업 자산입니다.',fame:'부드러운 연결 능력이 명예로 이어집니다. 다리 역할에서 인정받는 방식으로 명예운이 쌓입니다.',people:'진심 어린 배려가 귀인을 부릅니다. 베풀수록 돌아오는 인복이 이 사주의 특징입니다.'},
   2:{invest:'빠른 실행이 강점이지만 충동적 결정은 금물입니다. 결정 후 24시간 내 실행하되, 결정 전에는 반드시 하루 이상 숙고하십시오.',biz:'대외적 활동과 브랜딩에서 사업운이 폭발합니다. 보이고, 알리고, 연결할수록 수익이 따라옵니다.',fame:'존재감이 곧 명예입니다. 표현하고 나설수록 명예운이 올라가는 사주입니다.',people:'에너지를 발산할수록 귀인이 몰려옵니다. 사람 많은 자리에 자주 나가십시오.'},
   3:{invest:'직관을 믿되 논리로 검증하는 투자가 맞습니다. 첫 번째 감이 틀리지 않을 때가 많지만, 한 번은 반드시 확인하십시오.',biz:'깊이 있는 전문성이 사업운의 토대입니다. 빠른 확장보다 한 분야에서 최고가 되는 방향이 장기적으로 더 큰 수익을 냅니다.',fame:'진정성과 집중력이 조용하지만 확실한 명성을 쌓습니다. 한 분야의 깊이가 쌓일수록 명예운이 열립니다.',people:'진심으로 대하는 소수 관계에서 평생 귀인이 나옵니다. 넓게보다 깊게 사귀는 것이 이 사주의 인복 방식입니다.'},
@@ -1794,10 +1783,20 @@ function renderFateExtra(pillars, h) {
     <div class="compat-wrap reveal"><div class="compat-score-row">${ringHTML}${barsHTML}</div>
       <div style="font-size:13px;color:var(--i2);line-height:1.65;">${md.life}</div>
     </div>
-    <div class="match-card reveal"><div class="match-label">이상적인 인연</div><div class="match-body">${md.ideal}</div></div>
-    <div class="match-card reveal"><div class="match-label">조심해야 할 인연</div><div class="match-body">${md.caution}</div></div>
+    <div class="match-card reveal"><div class="match-label">이상적인 인연</div><div class="match-body el-blur pw-hide">${md.ideal}</div></div>
+    <div class="match-card reveal"><div class="match-label">조심해야 할 인연</div><div class="match-body el-blur pw-hide">${md.caution}</div></div>
     <div class="divider" style="margin:1.2rem 0 .9rem;">인연을 당기는 나만의 행동 전략</div>
-    <ul class="fate-action-list reveal">${d.actions.map(a=>`<li>${a}</li>`).join('')}</ul>`;
+    <ul class="fate-action-list reveal">${d.actions.map((a,i)=>`<li${i>0?' class="el-blur pw-hide"':''}>${a}</li>`).join('')}</ul>
+    <div class="inline-lock el-lock">
+      <div class="inline-lock-head"><svg viewBox="0 0 24 24" fill="none" stroke="#C8960C" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>잠긴 인연 분석 · 열람 후 공개</div>
+      <ul class="inline-lock-list">
+        <li>이상적인 인연 유형 전체 공개</li>
+        <li>조심해야 할 인연 유형 전체 공개</li>
+        <li>인연을 당기는 행동 전략 전체 공개</li>
+        <li>운명의 짝을 만나는 구체적 시기</li>
+      </ul>
+      <button class="inline-lock-btn" onclick="document.getElementById('purchase-panel').scrollIntoView({behavior:'smooth'})">봉인 해제하기 →</button>
+    </div>`;
 
   setTimeout(() => {
     compatVals.forEach((v,i) => {
@@ -2241,10 +2240,8 @@ function unlock() {
   document.querySelectorAll('.el-lock').forEach(el => el.style.display = 'none');
 
   // 잠긴 확장 섹션 공개
-  ['gauge-timing-section','career-routine-section','fate-extra-section'].forEach(id => {
-    const s = document.getElementById(id);
-    if (s) s.classList.remove('hidden');
-  });
+  const careerEl = document.getElementById('career-routine-section');
+  if (careerEl) careerEl.classList.remove('hidden');
 
   // 클라이맥스 티저 숨김
   const bc = document.getElementById('block-climax');
@@ -2390,10 +2387,10 @@ function submitReview() {
 
 /* ── 리뷰 목록 로드 ── */
 const _DEMO_REVIEWS = [
-  {display_name:'김지연', star_rating:5, content:'정말 소름돋았어요. 제 성격이랑 딱 맞아서 깜짝 놀랐습니다. 운명의 짝 부분이 특히 신기했어요.', created_at:'2026-06-13'},
+  {display_name:'김하연', star_rating:5, content:'정말 소름돋았어요 ㄷㄷ 제 성격이랑 딱 맞아서 깜짝 놀랐습니다. 특히 운명의 짝 부분이 신기했어요.', created_at:'2026-06-13'},
   {display_name:'박민준', star_rating:5, content:'재물운 풀이가 지금 상황이랑 너무 맞아서 스크린샷 찍어뒀어요. 주변에도 추천했습니다.', created_at:'2026-06-12'},
-  {display_name:'이수현', star_rating:4, content:'처음엔 반신반의했는데 읽다 보니 공감되는 부분이 많았어요. 위기 항목이 정확해서 놀랐습니다.', created_at:'2026-06-11'},
-  {display_name:'최다은', star_rating:5, content:'사주 풀이 여러 곳에서 봤는데 여기가 제일 상세하고 실용적이에요. 타이밍 달력도 잘 쓰고 있어요.', created_at:'2026-06-10'},
+  {display_name:'이수현', star_rating:4, content:'위기 항목이 정확해서 놀랐음. 진짜 지린다..', created_at:'2026-06-11'},
+  {display_name:'최다은', star_rating:5, content:'사주 풀이 여러 곳에서 봤는데 여기가 제일 상세하고 실용적이에요! 타이밍 달력 그대로 투자해본다!!', created_at:'2026-06-10'},
   {display_name:'정우진', star_rating:4, content:'직업 추천 부분이 신기하게 잘 맞았어요. 고민하던 거랑 딱 맞는 조언이라 결정하는 데 도움됐습니다.', created_at:'2026-06-09'},
 ];
 
