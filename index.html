@@ -1113,22 +1113,22 @@ body.has-results{padding-bottom:64px;}
   <div id="refund-policy" style="margin-bottom:2.5rem;">
     <div style="font-size:11px;letter-spacing:4px;color:#C8960C;margin-bottom:1rem;opacity:.8;">환불 및 취소 정책</div>
 
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불 원칙</div>
-    <p style="margin-bottom:.8rem;">전자상거래 등에서의 소비자보호에 관한 법률 제17조에 따라 디지털 콘텐츠의 특성상, 콘텐츠가 열람(공개)된 이후에는 환불이 제한될 수 있습니다. 단, 아래 사유에 해당하는 경우 환불 요청이 가능합니다.</p>
+    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불 불가 원칙</div>
+    <p style="margin-bottom:.8rem;">본 서비스는 개인의 사주팔자(생년월일·시·성별)를 기반으로 실시간 생성·제공되는 <strong style="color:#C8960C;">맞춤형 사주 콘텐츠</strong>입니다. 콘텐츠 특성상 결제 즉시 해당 운세 정보가 생성·열람 가능 상태가 되므로, <strong style="color:#C8960C;">결제 완료 후에는 어떠한 사유로도 환불이 불가합니다.</strong></p>
 
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불 가능 사유</div>
-    <p style="margin-bottom:.4rem;">① 결제 완료 후 콘텐츠를 열람하지 않은 경우: 결제일로부터 7일 이내 전액 환불</p>
-    <p style="margin-bottom:.4rem;">② 결제 오류 또는 이중 결제가 발생한 경우: 확인 후 전액 환불</p>
-    <p style="margin-bottom:.8rem;">③ 서비스 장애로 콘텐츠를 정상적으로 제공받지 못한 경우: 확인 후 전액 환불</p>
+    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불이 불가한 이유</div>
+    <p style="margin-bottom:.4rem;">① 사주 풀이는 개인 정보를 기반으로 즉시 생성되는 무형의 디지털 콘텐츠로, 반품·회수가 불가능합니다.</p>
+    <p style="margin-bottom:.4rem;">② 결제 완료 시점에 콘텐츠 제공이 완료된 것으로 간주됩니다.</p>
+    <p style="margin-bottom:.8rem;">③ 「전자상거래 등에서의 소비자보호에 관한 법률」 제17조 제2항 제5호에 따라, 복제 가능한 디지털 콘텐츠의 경우 소비자의 청약철회권이 제한될 수 있습니다.</p>
 
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불 불가 사유</div>
-    <p style="margin-bottom:.4rem;">① 콘텐츠 열람(봉인 해제) 이후 단순 변심에 의한 환불 요청</p>
-    <p style="margin-bottom:.8rem;">② 결제일로부터 7일이 경과한 경우</p>
+    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">예외적 처리 사항</div>
+    <p style="margin-bottom:.4rem;">① 결제 오류 또는 이중 결제가 발생한 경우: 확인 후 처리</p>
+    <p style="margin-bottom:.8rem;">② 서비스 장애로 콘텐츠를 전혀 제공받지 못한 경우: 운영자 확인 후 개별 안내</p>
 
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불 신청 방법</div>
+    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">문의처</div>
     <p style="margin-bottom:.4rem;">이메일: dreamm042@naver.com</p>
     <p style="margin-bottom:.4rem;">전화: 010-9425-7691</p>
-    <p style="margin-bottom:.8rem;">환불 요청 후 영업일 기준 3~5일 이내 처리됩니다.</p>
+    <p style="margin-bottom:.8rem;">결제·서비스 관련 문의는 위 연락처로 접수하시면 영업일 기준 1~2일 이내 안내드립니다.</p>
 
     <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">정기결제 안내</div>
     <p>본 서비스는 정기결제(구독) 방식이 아닌 1회 단건 결제 방식으로 운영됩니다. 자동 결제 및 정기 청구는 발생하지 않습니다.</p>
@@ -2430,23 +2430,16 @@ function readFortune() {
 }
 
 /* ── 잠금 해제 ── */
-function unlock() {
-  if (unlocked) return;
+function _applyUnlock(showToast) {
   unlocked = true;
 
   // 요소별 블러 해제
-  document.querySelectorAll('.el-blur').forEach(el => {
-    el.classList.remove('el-blur');
-  });
+  document.querySelectorAll('.el-blur').forEach(el => el.classList.remove('el-blur'));
   // 얼굴 사진 블러 해제 + 잠금 뱃지 제거
-  document.querySelectorAll('.pw-hide-img').forEach(img => {
-    img.classList.remove('blurred');
-  });
+  document.querySelectorAll('.pw-hide-img').forEach(img => img.classList.remove('blurred'));
   document.querySelectorAll('.fate-photo-lock').forEach(el => el.remove());
-  // 게이지 수치 블러 해제 (pw-hide 클래스 동일하게 활용)
-  document.querySelectorAll('.pw-hide').forEach(el => {
-    el.classList.remove('el-blur','pw-hide');
-  });
+  // 게이지 수치 블러 해제
+  document.querySelectorAll('.pw-hide').forEach(el => el.classList.remove('el-blur','pw-hide'));
 
   // 인라인 잠금 패널 숨김
   document.querySelectorAll('.el-lock').forEach(el => el.style.display = 'none');
@@ -2463,24 +2456,51 @@ function unlock() {
   const nudge = document.getElementById('scroll-nudge');
   if (nudge) nudge.classList.remove('show');
 
-  // 구매 패널 숨김, 잠긴 섹션 공개
-  document.getElementById('purchase-panel').classList.add('hidden');
+  // 구매 패널 숨김, 성공 블록 공개
+  const pp = document.getElementById('purchase-panel');
+  if (pp) pp.classList.add('hidden');
   const bs = document.getElementById('block-success');
   if (bs) bs.style.display = 'block';
 
   // 고정 CTA 숨김
-  document.getElementById('fixed-cta').classList.remove('visible');
+  const cta = document.getElementById('fixed-cta');
+  if (cta) cta.classList.remove('visible');
   if (ctaTimerInterval) clearInterval(ctaTimerInterval);
 
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-  setTimeout(() => {
-    document.getElementById('block-invest').scrollIntoView({ behavior:'smooth', block:'start' });
-  }, 400);
+  if (showToast) {
+    const toast = document.getElementById('toast');
+    if (toast) {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+    setTimeout(() => {
+      const target = document.getElementById('block-invest');
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 400);
+  }
 
-  // 리뷰 폼 렌더 & 리뷰 목록 표시
+  // 리뷰 폼 렌더
   renderReviewForm();
+}
+
+function unlock() {
+  if (unlocked) return;
+
+  // 결제 세션 키: 오늘 날짜 기반 — 당일 결제 유지, 다음날 자동 만료
+  const today = new Date().toISOString().slice(0, 10);
+  try { localStorage.setItem('gp_unlocked', today); } catch(e) {}
+
+  _applyUnlock(true);
+}
+
+// 페이지 로드 시 이전 결제 상태 복원
+function _restoreUnlockState() {
+  const today = new Date().toISOString().slice(0, 10);
+  let saved = null;
+  try { saved = localStorage.getItem('gp_unlocked'); } catch(e) {}
+  if (saved === today) {
+    _applyUnlock(false);
+  }
 }
 
 const firebaseConfig = {
@@ -2520,6 +2540,7 @@ function _incrementAndWatchVisitors() {
 
 document.addEventListener('DOMContentLoaded', () => {
   _renderReviewList(_DEMO_REVIEWS);
+  _restoreUnlockState();
   _auth.onAuthStateChanged(user => {
     _authUser = user;
     updateAuthUI();
