@@ -607,6 +607,17 @@ body.has-results{padding-bottom:64px;}
 .auth-modal-sub{font-size:13px;color:var(--i3);letter-spacing:1px;margin-bottom:1.8rem;}
 .auth-social-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:.85rem;margin-bottom:.75rem;border-radius:4px;font-family:'Nanum Myeongjo',serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:opacity .2s;}
 .auth-social-btn:hover{opacity:.88;}
+
+/* ── 결제완료 안내 모달 ── */
+.unlock-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1200;align-items:center;justify-content:center;}
+.unlock-modal-bg.show{display:flex;}
+.unlock-modal{background:var(--s);border:1px solid rgba(200,150,12,.35);border-radius:8px;padding:2rem 1.75rem 1.75rem;width:min(340px,90vw);text-align:center;}
+.unlock-modal-icon{font-size:28px;margin-bottom:.6rem;}
+.unlock-modal-title{font-size:16px;font-weight:700;color:var(--g2);letter-spacing:2px;margin-bottom:1.2rem;}
+.unlock-modal-body{font-size:13px;color:var(--i2);line-height:2.1;text-align:left;background:rgba(26,18,8,.6);border-radius:5px;padding:.9rem 1.1rem;margin-bottom:1.4rem;border:1px solid rgba(200,150,12,.15);}
+.unlock-modal-body strong{color:var(--g3);}
+.unlock-modal-confirm{display:block;width:100%;padding:.85rem;background:var(--g);border:none;border-radius:4px;font-family:'Noto Serif KR',serif;font-size:14px;font-weight:700;color:var(--s2);letter-spacing:2px;cursor:pointer;transition:background .2s;}
+.unlock-modal-confirm:hover{background:var(--g2);}
 .auth-social-btn.google{background:#fff;color:#333;margin:0 auto;}
 .auth-social-btn svg{width:20px;height:20px;flex-shrink:0;}
 .auth-modal-close{margin-top:1rem;font-size:12px;color:var(--i3);cursor:pointer;letter-spacing:1px;}
@@ -1158,6 +1169,21 @@ body.has-results{padding-bottom:64px;}
 </div>
 
 <div class="toast" id="toast">전체 풀이가 공개되었습니다</div>
+
+<!-- 결제완료 안내 모달 -->
+<div class="unlock-modal-bg" id="unlock-modal-bg">
+  <div class="unlock-modal">
+    <div class="unlock-modal-icon">🔓</div>
+    <div class="unlock-modal-title">봉인이 해제되었습니다</div>
+    <div style="font-size:15px;font-weight:700;letter-spacing:2px;color:#D9534F;margin-bottom:.9rem;">⚠️ 주의</div>
+    <div class="unlock-modal-body">
+      본 사주 풀이는 <strong>열람 시점의 날짜·시각·생년월일</strong>을 실시간으로 대입하여 생성됩니다.<br><br>
+      페이지를 새로고침 시 <strong>재결제가 필요합니다.</strong><br><br>
+      📸 지금 바로 <strong>화면을 캡처하거나 스크롤하며 저장</strong>해두시길 권장합니다.
+    </div>
+    <button class="unlock-modal-confirm" onclick="document.getElementById('unlock-modal-bg').classList.remove('show');setTimeout(()=>{const t=document.getElementById('block-invest');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},200);">확인했습니다</button>
+  </div>
+</div>
 <div class="scroll-nudge" id="scroll-nudge">
   🔒 잠긴 내용이 <strong style="color:var(--g2);margin:0 2px;" id="nudge-count">8</strong>개 남아있습니다
   <span class="scroll-nudge-close" onclick="document.getElementById('scroll-nudge').classList.remove('show')">✕</span>
@@ -2023,7 +2049,7 @@ function renderFateExtra(pillars, h) {
     <div class="match-card reveal"><div class="match-label">이상적인 인연</div><div class="match-body el-blur pw-hide">${md.ideal}</div></div>
     <div class="match-card reveal"><div class="match-label">조심해야 할 인연</div><div class="match-body el-blur pw-hide">${md.caution}</div></div>
     <div class="divider" style="margin:1.2rem 0 .9rem;">인연을 당기는 나만의 행동 전략</div>
-    <ul class="fate-action-list reveal">${d.actions.map((a,i)=>`<li${i>0?' class="el-blur pw-hide"':''}>${a}</li>`).join('')}</ul>
+    <ul class="fate-action-list reveal">${d.actions.map(a=>`<li class="el-blur pw-hide">${a}</li>`).join('')}</ul>
     <div class="inline-lock el-lock">
       <div class="inline-lock-head"><svg viewBox="0 0 24 24" fill="none" stroke="#C8960C" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>잠긴 인연 분석 · 열람 후 공개</div>
       <ul class="inline-lock-list">
@@ -2087,9 +2113,9 @@ function renderFatePartner(pillars, gender, h) {
   const partnerHeight = heightRange[0] + ((h >>> 4) % (heightRange[1] - heightRange[0] + 1));
 
   // 배지: 첫 번째는 보이고 나머지는 블러
-  function badgeLine(arr, cls) {
+  function badgeLine(arr, cls, blurAll) {
     return arr.map((t, i) =>
-      `<div class="fate-badge ${cls}${i > 0 ? ' el-blur pw-hide' : ''}">${t}</div>`
+      `<div class="fate-badge ${cls}${(blurAll || i > 0) ? ' el-blur pw-hide' : ''}">${t}</div>`
     ).join('');
   }
 
@@ -2110,7 +2136,7 @@ function renderFatePartner(pillars, gender, h) {
       <div class="fate-info">
         <div class="fate-category">
           <div class="fate-category-label">직업</div>
-          <div class="fate-badge-row">${badgeLine(d.job,'job')}</div>
+          <div class="fate-badge-row">${badgeLine(d.job,'job', true)}</div>
         </div>
         <div class="fate-category">
           <div class="fate-category-label">외모</div>
@@ -2118,7 +2144,7 @@ function renderFatePartner(pillars, gender, h) {
         </div>
         <div class="fate-category">
           <div class="fate-category-label">성격</div>
-          <div class="fate-badge-row">${badgeLine(d.pers,'pers')}</div>
+          <div class="fate-badge-row">${badgeLine(d.pers,'pers', true)}</div>
         </div>
         <div class="fate-category">
           <div class="fate-category-label">특징</div>
@@ -2177,13 +2203,15 @@ let ctaTimerInterval = null;
 function startCtaTimer() {
   if (ctaTimerInterval) { clearInterval(ctaTimerInterval); ctaTimerInterval = null; }
   const fixed = document.getElementById('fixed-cta');
+  if (!fixed) return;
   fixed.classList.add('visible');
   let secs = 2 * 3600 + 28 * 60 + 30; // 2시간 28분 30초
   function tick() {
     const h = String(Math.floor(secs / 3600)).padStart(2, '0');
     const m = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
     const s = String(secs % 60).padStart(2, '0');
-    document.getElementById('cta-timer').textContent = h + ':' + m + ':' + s;
+    const timerEl = document.getElementById('cta-timer');
+    if (timerEl) timerEl.textContent = h + ':' + m + ':' + s;
     if (secs > 0) secs--;
   }
   tick();
@@ -2430,77 +2458,38 @@ function readFortune() {
 }
 
 /* ── 잠금 해제 ── */
-function _applyUnlock(showToast) {
+function unlock() {
+  if (unlocked) return;
   unlocked = true;
 
-  // 요소별 블러 해제
   document.querySelectorAll('.el-blur').forEach(el => el.classList.remove('el-blur'));
-  // 얼굴 사진 블러 해제 + 잠금 뱃지 제거
   document.querySelectorAll('.pw-hide-img').forEach(img => img.classList.remove('blurred'));
   document.querySelectorAll('.fate-photo-lock').forEach(el => el.remove());
-  // 게이지 수치 블러 해제
   document.querySelectorAll('.pw-hide').forEach(el => el.classList.remove('el-blur','pw-hide'));
-
-  // 인라인 잠금 패널 숨김
   document.querySelectorAll('.el-lock').forEach(el => el.style.display = 'none');
 
-  // 잠긴 확장 섹션 공개
   const careerEl = document.getElementById('career-routine-section');
   if (careerEl) careerEl.classList.remove('hidden');
 
-  // 클라이맥스 티저 숨김
   const bc = document.getElementById('block-climax');
   if (bc) bc.style.display = 'none';
 
-  // nudge 숨김
   const nudge = document.getElementById('scroll-nudge');
   if (nudge) nudge.classList.remove('show');
 
-  // 구매 패널 숨김, 성공 블록 공개
   const pp = document.getElementById('purchase-panel');
   if (pp) pp.classList.add('hidden');
   const bs = document.getElementById('block-success');
   if (bs) bs.style.display = 'block';
 
-  // 고정 CTA 숨김
   const cta = document.getElementById('fixed-cta');
   if (cta) cta.classList.remove('visible');
   if (ctaTimerInterval) clearInterval(ctaTimerInterval);
 
-  if (showToast) {
-    const toast = document.getElementById('toast');
-    if (toast) {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-    setTimeout(() => {
-      const target = document.getElementById('block-invest');
-      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
-    }, 400);
-  }
+  const modal = document.getElementById('unlock-modal-bg');
+  if (modal) modal.classList.add('show');
 
-  // 리뷰 폼 렌더
   renderReviewForm();
-}
-
-function unlock() {
-  if (unlocked) return;
-
-  // 결제 세션 키: 오늘 날짜 기반 — 당일 결제 유지, 다음날 자동 만료
-  const today = new Date().toISOString().slice(0, 10);
-  try { localStorage.setItem('gp_unlocked', today); } catch(e) {}
-
-  _applyUnlock(true);
-}
-
-// 페이지 로드 시 이전 결제 상태 복원
-function _restoreUnlockState() {
-  const today = new Date().toISOString().slice(0, 10);
-  let saved = null;
-  try { saved = localStorage.getItem('gp_unlocked'); } catch(e) {}
-  if (saved === today) {
-    _applyUnlock(false);
-  }
 }
 
 const firebaseConfig = {
@@ -2539,8 +2528,8 @@ function _incrementAndWatchVisitors() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  try { localStorage.removeItem('gp_unlocked'); } catch(e) {}
   _renderReviewList(_DEMO_REVIEWS);
-  _restoreUnlockState();
   _auth.onAuthStateChanged(user => {
     _authUser = user;
     updateAuthUI();
