@@ -9,6 +9,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 <style>
 :root {
   --g:  #C8960C;
@@ -2687,8 +2688,8 @@ function readFortune() {
   document.body.classList.add('has-results');
 }
 
-/* ── 잠금 해제 ── */
-function unlock() {
+/* ── 콘텐츠 실제 해제 (결제 성공 후 호출) ── */
+function _doUnlock() {
   if (unlocked) return;
   unlocked = true;
 
@@ -2720,6 +2721,61 @@ function unlock() {
   if (modal) modal.classList.add('show');
 
   renderReviewForm();
+}
+
+/* ── 잠금 해제 (결제 진입점) ── */
+async function unlock() {
+  if (unlocked) return;
+
+  // 로그인 필요
+  if (!_authUser) {
+    document.getElementById('auth-modal-bg').classList.add('show');
+    return;
+  }
+
+  const uid = _authUser.uid;
+
+  // 이미 결제한 유저라면 바로 해제
+  try {
+    const doc = await _db.collection('payments').doc(uid).get();
+    if (doc.exists && doc.data().paid) {
+      _doUnlock();
+      return;
+    }
+  } catch(e) {}
+
+  // 포트원 V2 결제 요청
+  const paymentId = `saju-${uid}-${Date.now()}`;
+  try {
+    const response = await PortOne.requestPayment({
+      storeId: 'merchantest6',
+      channelKey: 'channel-key-f0d56ca7-a576-4081-bf32-b15e71e37845',
+      paymentId,
+      orderName: '황금돼지 사주 전체 풀이',
+      totalAmount: 7900,
+      currency: 'KRW',
+      payMethod: 'CARD',
+      customer: {
+        customerId: uid,
+      },
+    });
+
+    if (response && !response.code) {
+      // 결제 성공 → Firestore에 기록
+      await _db.collection('payments').doc(uid).set({
+        paid: true,
+        paymentId,
+        paidAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+      _doUnlock();
+    } else {
+      const msg = (response && response.message) ? response.message : '결제가 취소되었습니다.';
+      alert(msg);
+    }
+  } catch(err) {
+    alert('결제 중 오류가 발생했습니다. 다시 시도해 주세요.');
+    console.error(err);
+  }
 }
 
 const firebaseConfig = {
