@@ -2762,8 +2762,18 @@ async function unlock(pg) {
   }
 
   const ch = _PG_CHANNELS[pgKey] || _PG_CHANNELS.card;
-  const paymentId = `saju-${uid}-${Date.now()}`;
+  const cleanUid = uid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
+  const paymentId = `saju${cleanUid}${Date.now()}`;
   try {
+    const customer = { customerId: cleanUid };
+    if (pgKey === 'inicis') {
+      const email = _authUser && _authUser.email
+        ? _authUser.email
+        : window.prompt('이니시스 결제를 위해 이메일을 입력해주세요');
+      if (!email) return;
+      customer.email = email;
+    }
+
     const payParams = {
       storeId: ch.storeId,
       channelKey: ch.channelKey,
@@ -2772,7 +2782,7 @@ async function unlock(pg) {
       totalAmount: 7900,
       currency: 'KRW',
       payMethod: ch.payMethod,
-      customer: { customerId: uid },
+      customer,
     };
     if (ch.easyPayProvider) payParams.easyPay = { easyPayProvider: ch.easyPayProvider };
     const response = await PortOne.requestPayment(payParams);
