@@ -2734,17 +2734,17 @@ const _PG_CHANNELS = {
   kakao:  { storeId: 'TC0ONETIME',    channelKey: 'channel-key-235a21d5-18cf-4afa-8322-5b5667564031', payMethod: 'EASY_PAY', easyPayProvider: 'KAKAOPAY' },
 };
 
+function _getPayerId() {
+  let id = localStorage.getItem('saju_payer_id');
+  if (!id) { id = 'anon-' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('saju_payer_id', id); }
+  return _authUser ? _authUser.uid : id;
+}
+
 async function unlock(pg) {
   if (unlocked) return;
   const pgKey = pg || 'card';
 
-  // 로그인 필요
-  if (!_authUser) {
-    document.getElementById('auth-modal-bg').classList.add('show');
-    return;
-  }
-
-  const uid = _authUser.uid;
+  const uid = _getPayerId();
 
   // 이미 결제한 유저라면 바로 해제
   try {
