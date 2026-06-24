@@ -995,7 +995,10 @@ body.has-results{padding-bottom:64px;}
         <div class="pw-price">₩ 7,900</div>
         <div class="pw-price-sub">전체 풀이 · 대기열 없음 · 즉시 공개</div>
       </div>
-      <button class="pay-btn" onclick="unlock()">지금 바로 봉인 해제하기</button>
+      <div style="display:flex;gap:.5rem;margin-bottom:.6rem;">
+        <button class="pay-btn" style="flex:1;margin-bottom:0;" onclick="unlock('card')">카드결제</button>
+        <button class="pay-btn" style="flex:1;margin-bottom:0;background:linear-gradient(90deg,#3a6ea8,#5b9bd5,#3a6ea8);background-size:200%;box-shadow:0 6px 28px rgba(58,110,168,.4);" onclick="unlock('inicis')">이니시스 결제</button>
+      </div>
       <div class="pw-safe">🔐 안전 결제 · 개인정보 보호</div>
       <!-- 리뷰 슬라이더 -->
       <div id="reviews-list-wrap" style="display:none;margin-top:1.4rem;">
@@ -1189,7 +1192,7 @@ body.has-results{padding-bottom:64px;}
       <div class="fixed-cta-text-title">전체 풀이 열람권</div>
       <div class="fixed-cta-text-sub">₩ 7,900 · 1회 열람</div>
     </div>
-    <button class="fixed-cta-btn" onclick="unlock()">지금 열람하기</button>
+    <button class="fixed-cta-btn" onclick="unlock('card')">지금 열람하기</button>
   </div>
 </div>
 
@@ -2724,8 +2727,14 @@ function _doUnlock() {
 }
 
 /* ── 잠금 해제 (결제 진입점) ── */
-async function unlock() {
+const _PG_CHANNELS = {
+  card:   { storeId: 'merchantest6',  channelKey: 'channel-key-f0d56ca7-a576-4081-bf32-b15e71e37845' },
+  inicis: { storeId: 'INIpayTest',    channelKey: 'channel-key-bcab7d49-37ae-4d08-81dd-bd7fded65a0c' },
+};
+
+async function unlock(pg) {
   if (unlocked) return;
+  const pgKey = pg || 'card';
 
   // 로그인 필요
   if (!_authUser) {
@@ -2745,26 +2754,25 @@ async function unlock() {
   } catch(e) {}
 
   // 포트원 V2 결제 요청
+  const ch = _PG_CHANNELS[pgKey] || _PG_CHANNELS.card;
   const paymentId = `saju-${uid}-${Date.now()}`;
   try {
     const response = await PortOne.requestPayment({
-      storeId: 'merchantest6',
-      channelKey: 'channel-key-f0d56ca7-a576-4081-bf32-b15e71e37845',
+      storeId: ch.storeId,
+      channelKey: ch.channelKey,
       paymentId,
       orderName: '황금돼지 사주 전체 풀이',
       totalAmount: 7900,
       currency: 'KRW',
       payMethod: 'CARD',
-      customer: {
-        customerId: uid,
-      },
+      customer: { customerId: uid },
     });
 
     if (response && !response.code) {
-      // 결제 성공 → Firestore에 기록
       await _db.collection('payments').doc(uid).set({
         paid: true,
         paymentId,
+        pg: pgKey,
         paidAt: firebase.firestore.FieldValue.serverTimestamp(),
       }, { merge: true });
       _doUnlock();
