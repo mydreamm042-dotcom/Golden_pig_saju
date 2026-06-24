@@ -2756,6 +2756,11 @@ async function unlock(pg) {
   } catch(e) {}
 
   // 포트원 V2 결제 요청
+  if (typeof PortOne === 'undefined') {
+    alert('결제 모듈 로딩 실패. 페이지를 새로고침 후 다시 시도해주세요.');
+    return;
+  }
+
   const ch = _PG_CHANNELS[pgKey] || _PG_CHANNELS.card;
   const paymentId = `saju-${uid}-${Date.now()}`;
   try {
@@ -2785,8 +2790,9 @@ async function unlock(pg) {
       alert(msg);
     }
   } catch(err) {
-    alert('결제 중 오류가 발생했습니다. 다시 시도해 주세요.');
-    console.error(err);
+    const msg = err && (err.message || JSON.stringify(err));
+    alert('결제 오류: ' + msg);
+    console.error('[결제오류]', err);
   }
 }
 
