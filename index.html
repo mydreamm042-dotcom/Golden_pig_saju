@@ -2762,16 +2762,16 @@ async function unlock(pg) {
   }
 
   const ch = _PG_CHANNELS[pgKey] || _PG_CHANNELS.card;
-  const cleanUid = uid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
-  const paymentId = `saju${cleanUid}${Date.now()}`;
+  const paymentId = `saju${Date.now()}`;
   try {
-    const customer = { customerId: cleanUid };
+    const customer = { customerId: uid.slice(0, 20) };
     if (pgKey === 'inicis') {
-      const email = _authUser && _authUser.email
-        ? _authUser.email
-        : window.prompt('이니시스 결제를 위해 이메일을 입력해주세요');
+      const email = (_authUser && _authUser.email) || window.prompt('이메일을 입력해주세요');
       if (!email) return;
+      const phone = window.prompt('휴대폰 번호를 입력해주세요 (예: 01012345678)');
+      if (!phone) return;
       customer.email = email;
+      customer.phoneNumber = phone;
     }
 
     const payParams = {
