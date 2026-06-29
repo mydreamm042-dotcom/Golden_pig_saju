@@ -9,7 +9,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 <style>
 :root {
   --g:  #C8960C;
@@ -973,13 +972,37 @@ body.has-results{padding-bottom:64px;}
 
     <!-- ⑤-B 구매 패널 -->
     <div class="purchase-panel" id="purchase-panel">
-      <div class="pw-lock">🔒 열람권 필요</div>
-      <div class="pw-title">지금 바로<br>전체 풀이를 여세요</div>
+      <img src="https://raw.githubusercontent.com/mydreamm042-dotcom/lililili/main/images/pig_image1.png" alt="황금돼지" style="width:100%;max-height:300px;object-fit:cover;object-position:50% 60%;border-radius:12px;margin:0 0 1.1rem;display:block;">
+      <div class="pw-lock">🐷 황금돼지의 봉인</div>
+      <div class="pw-title">재물을 바친 후,<br>봉인 해제를 해보세요.</div>
       <div class="pw-social">
         <div class="pw-social-dot"></div>
-        오늘 <span id="pw-viewer-count" style="color:var(--g2);font-weight:700;">247</span>명이 열람했습니다
+        오늘 <span id="pw-viewer-count" style="color:var(--g2);font-weight:700;">247</span>명이 제물을 올렸습니다
       </div>
-      <div class="pw-content-list">
+
+      <!-- 재물 바치기 안내 -->
+      <div style="background:rgba(200,150,12,.08);border:1px solid rgba(200,150,12,.25);border-radius:8px;padding:1.2rem 1.4rem;margin:1.2rem 0;text-align:left;">
+        <div style="font-size:11px;letter-spacing:3px;color:var(--g2);margin-bottom:.9rem;opacity:.85;">🔑 봉인 해제 방법</div>
+        <div style="font-size:13px;color:#A08060;line-height:2;letter-spacing:.5px;">
+          <div style="color:var(--g3);font-weight:700;font-size:15px;margin-bottom:.6rem;">"황금돼지에게 재물을 바치세요. 제가 기도 해드릴게요."</div>
+          <div style="color:#C8960C;font-size:16px;font-weight:900;letter-spacing:2px;margin:.4rem 0;">신한</div>
+          <div style="color:#E8D080;font-size:18px;font-weight:900;letter-spacing:3px;margin:.2rem 0;">110507250113</div>
+          <div style="color:#8B7355;font-size:13px;margin-top:.3rem;">예금주 · 박종찬</div>
+        </div>
+        <div style="margin-top:1rem;font-size:12px;color:#6B5535;letter-spacing:.5px;line-height:1.9;">
+          입금 후 아래 <strong style="color:var(--g2);">봉인 해제하기</strong> 버튼을 누르세요<br>
+          금액은 황금돼지가 정한 만큼, 마음에서 우러난 만큼
+        </div>
+      </div>
+
+      <!-- 신비 CTA 문구 -->
+      <div style="margin:1rem 0;font-family:'Noto Serif KR',serif;font-size:13px;color:#8B7355;line-height:2.2;letter-spacing:.5px;">
+        <div style="padding:.35rem 0;border-bottom:1px solid rgba(200,150,12,.1);"> 🔑동전 하나가 운명을 바꿉니다</div>
+        <div style="padding:.35rem 0;border-bottom:1px solid rgba(200,150,12,.1);">🐷 황금돼지는 몇 배로 돌려줍니다</div>
+        <div style="padding:.35rem 0;">⏳ 지금 놓치면 다음 기회는 모릅니다</div>
+      </div>
+
+      <div class="pw-content-list" style="margin:1rem 0;">
         <div class="pw-content-chip">✓ 성공 포인트</div>
         <div class="pw-content-chip">✓ 재물 총평</div>
         <div class="pw-content-chip">✓ 시기별 재산 흐름</div>
@@ -989,18 +1012,10 @@ body.has-results{padding-bottom:64px;}
         <div class="pw-content-chip">✓ 올해의 운세</div>
         <div class="pw-content-chip">✓ 행운 아이템</div>
       </div>
-      <div class="pw-divider"></div>
-      <div class="pw-price-wrap">
-        <div class="pw-price-orig">₩ 49,000</div>
-        <div class="pw-price">₩ 7,900</div>
-        <div class="pw-price-sub">전체 풀이 · 대기열 없음 · 즉시 공개</div>
-      </div>
-      <div style="display:flex;gap:.5rem;margin-bottom:.5rem;">
-        <button class="pay-btn" style="flex:1;margin-bottom:0;" onclick="unlock('card')">카드결제</button>
-        <button class="pay-btn" style="flex:1;margin-bottom:0;background:linear-gradient(90deg,#3a6ea8,#5b9bd5,#3a6ea8);background-size:200%;box-shadow:0 6px 28px rgba(58,110,168,.4);" onclick="unlock('inicis')">이니시스</button>
-      </div>
-      <button class="pay-btn" style="margin-bottom:.6rem;background:linear-gradient(90deg,#FAE100,#FFD700,#FAE100);background-size:200%;color:#3A1D00;box-shadow:0 6px 28px rgba(250,225,0,.4);" onclick="unlock('kakao')">카카오페이</button>
-      <div class="pw-safe">🔐 안전 결제 · 개인정보 보호</div>
+
+      <button class="pay-btn" onclick="unlock()">🔓 봉인 해제하기</button>
+      <div class="pw-safe" style="margin-top:.8rem;">입금 후 버튼을 누르시면 즉시 열람됩니다</div>
+
       <!-- 리뷰 슬라이더 -->
       <div id="reviews-list-wrap" style="display:none;margin-top:1.4rem;">
         <div class="reviews-list-title">— 열람 후기 —</div>
@@ -1045,34 +1060,34 @@ body.has-results{padding-bottom:64px;}
         <div class="pig-line" id="lucky-txt"></div>
         <div class="lucky-row" id="lucky-tags"></div>
 
-        <div class="divider" style="color:var(--g2);">결혼운 · 배우자 인연</div>
+        <div class="divider">결혼운 · 배우자 인연</div>
         <div id="marriage-content"></div>
 
-        <div class="divider" style="color:var(--g2);">건강운 · 조심할 신체 부위</div>
+        <div class="divider">건강운 · 조심할 신체 부위</div>
         <div id="health-content"></div>
 
-        <div class="divider" style="color:var(--g2);">귀인운 · 나를 이끌어줄 사람</div>
+        <div class="divider">귀인운 · 나를 이끌어줄 사람</div>
         <div id="gwiin-content"></div>
 
-        <div class="divider" style="color:var(--g2);">도화살 · 이성운과 매력</div>
+        <div class="divider">도화살 · 이성운과 매력</div>
         <div id="dohwa-content"></div>
 
-        <div class="divider" style="color:var(--g2);">관재구설 · 분쟁과 손재수</div>
+        <div class="divider">관재구설 · 분쟁과 손재수</div>
         <div id="legal-content"></div>
 
-        <div class="divider" style="color:var(--g2);">역마살 · 이동과 변화의 기운</div>
+        <div class="divider">역마살 · 이동과 변화의 기운</div>
         <div id="yeokma-content"></div>
 
-        <div class="divider" style="color:var(--g2);">삼재 · 조심해야 할 3년</div>
+        <div class="divider">삼재 · 조심해야 할 3년</div>
         <div id="samjae-content"></div>
 
-        <div class="divider" style="color:var(--g2);">이직 · 이사운 · 환경 변화</div>
+        <div class="divider">이직 · 이사운 · 환경 변화</div>
         <div id="change-content"></div>
 
-        <div class="divider" style="color:var(--g2);">자녀운 · 자녀 인연</div>
+        <div class="divider">자녀운 · 자녀 인연</div>
         <div id="child-content"></div>
 
-        <div class="divider" style="color:var(--g2);">공망 · 빈 자리의 의미</div>
+        <div class="divider">공망 · 빈 자리의 의미</div>
         <div id="gongmang-content"></div>
       </div>
 
@@ -1097,87 +1112,11 @@ body.has-results{padding-bottom:64px;}
 
 </div><!-- /wrap -->
 
-<!-- ══ 사업자 정보 / 이용약관 / 환불정책 ══ -->
-<div style="background:#100A03;border-top:1px solid rgba(200,150,12,.15);padding:3rem 1.25rem 2rem;font-family:'Nanum Myeongjo','Noto Serif KR',serif;color:#8B7355;font-size:13px;line-height:2.2;max-width:720px;margin:0 auto;">
-
-  <!-- 사업자 정보 -->
-  <div style="margin-bottom:2.5rem;">
-    <div style="font-size:11px;letter-spacing:4px;color:#C8960C;margin-bottom:1rem;opacity:.8;">사업자 정보</div>
-    <table style="width:100%;border-collapse:collapse;font-size:13px;color:#8B7355;">
-      <tr><td style="padding:5px 0;width:110px;color:#6B5535;letter-spacing:1px;">상호명</td><td style="padding:5px 0;">엔젤벨</td></tr>
-      <tr><td style="padding:5px 0;color:#6B5535;letter-spacing:1px;">대표자</td><td style="padding:5px 0;">이예찬</td></tr>
-      <tr><td style="padding:5px 0;color:#6B5535;letter-spacing:1px;">사업자등록번호</td><td style="padding:5px 0;">893-47-01236</td></tr>
-      <tr><td style="padding:5px 0;color:#6B5535;letter-spacing:1px;">사업장 주소</td><td style="padding:5px 0;">경상남도 김해시 김해대로2517번길 45, 101호 (삼정동, 럭키빌라)</td></tr>
-      <tr><td style="padding:5px 0;color:#6B5535;letter-spacing:1px;">전화번호</td><td style="padding:5px 0;">010-9425-7691</td></tr>
-      <tr><td style="padding:5px 0;color:#6B5535;letter-spacing:1px;">이메일</td><td style="padding:5px 0;">dreamm042@naver.com</td></tr>
-      <tr><td style="padding:5px 0;color:#6B5535;letter-spacing:1px;">통신판매업 신고</td><td style="padding:5px 0;">신고 준비 중</td></tr>
-    </table>
+<!-- 하단 카피라이트 -->
+<div style="background:#100A03;border-top:1px solid rgba(200,150,12,.1);padding:1.5rem 1.25rem;text-align:center;">
+  <div style="font-size:11px;color:#4A3A28;letter-spacing:2px;">
+    © 2026 황금돼지 사주 · 본 서비스는 오락·참고용 콘텐츠입니다
   </div>
-
-  <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,150,12,.2),transparent);margin-bottom:2.5rem;"></div>
-
-  <!-- 이용약관 -->
-  <div style="margin-bottom:2.5rem;">
-    <div style="font-size:11px;letter-spacing:4px;color:#C8960C;margin-bottom:1rem;opacity:.8;">이용약관</div>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제1조 (목적)</div>
-    <p style="margin-bottom:.8rem;">본 약관은 엔젤벨(이하 "회사")이 운영하는 황금돼지 사주 서비스(goldenpigsaju.kr, 이하 "서비스")의 이용 조건 및 절차, 회사와 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제2조 (서비스 내용)</div>
-    <p style="margin-bottom:.8rem;">회사는 사용자가 입력한 생년월일, 출생 시간, 성별 등의 정보를 기반으로 사주 분석 콘텐츠(재물운, 성공운, 연애운 등)를 제공합니다. 본 서비스는 오락·참고용 콘텐츠이며, 전문적인 법률·의료·재무 조언을 대체하지 않습니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제3조 (서비스 이용)</div>
-    <p style="margin-bottom:.4rem;">① 서비스는 별도의 회원가입 없이 이용할 수 있으며, 리뷰 작성 시 소셜 로그인이 필요합니다.</p>
-    <p style="margin-bottom:.4rem;">② 이용자는 타인의 정보를 무단으로 입력하거나 서비스를 불법적인 목적으로 이용할 수 없습니다.</p>
-    <p style="margin-bottom:.8rem;">③ 서비스에서 제공되는 콘텐츠의 무단 복제·배포·상업적 이용을 금지합니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제4조 (결제)</div>
-    <p style="margin-bottom:.4rem;">① 프리미엄 풀이 열람권은 1회 결제 방식으로 제공됩니다.</p>
-    <p style="margin-bottom:.4rem;">② 결제 금액: ₩7,900 (부가세 포함)</p>
-    <p style="margin-bottom:.8rem;">③ 결제는 포트원(PortOne) PG사를 통해 안전하게 처리됩니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제5조 (면책)</div>
-    <p style="margin-bottom:.4rem;">① 본 서비스의 사주 풀이는 통계 및 전통 역학 이론에 기반한 참고 콘텐츠로, 결과의 정확성을 법적으로 보장하지 않습니다.</p>
-    <p style="margin-bottom:.8rem;">② 이용자가 서비스 결과를 토대로 내린 판단 및 행동에 대해 회사는 책임을 지지 않습니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제6조 (약관 변경)</div>
-    <p style="margin-bottom:.8rem;">회사는 필요 시 본 약관을 변경할 수 있으며, 변경 시 서비스 내 공지를 통해 안내합니다. 변경된 약관은 공지 후 7일이 경과한 날부터 효력이 발생합니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">제7조 (준거법 및 관할)</div>
-    <p>본 약관은 대한민국 법률에 따르며, 분쟁 발생 시 회사 소재지를 관할하는 법원을 전속 관할 법원으로 합니다.</p>
-  </div>
-
-  <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,150,12,.2),transparent);margin-bottom:2.5rem;"></div>
-
-  <!-- 환불 정책 -->
-  <div style="margin-bottom:2.5rem;">
-    <div style="font-size:11px;letter-spacing:4px;color:#C8960C;margin-bottom:1rem;opacity:.8;">환불 및 취소 정책</div>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불 불가 원칙</div>
-    <p style="margin-bottom:.8rem;">본 서비스는 개인의 사주팔자(생년월일·시·성별)를 기반으로 실시간 생성·제공되는 <strong style="color:#C8960C;">맞춤형 사주 콘텐츠</strong>입니다. 콘텐츠 특성상 결제 즉시 해당 운세 정보가 생성·열람 가능 상태가 되므로, <strong style="color:#C8960C;">결제 완료 후에는 어떠한 사유로도 환불이 불가합니다.</strong></p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">환불이 불가한 이유</div>
-    <p style="margin-bottom:.4rem;">① 사주 풀이는 개인 정보를 기반으로 즉시 생성되는 무형의 디지털 콘텐츠로, 반품·회수가 불가능합니다.</p>
-    <p style="margin-bottom:.4rem;">② 결제 완료 시점에 콘텐츠 제공이 완료된 것으로 간주됩니다.</p>
-    <p style="margin-bottom:.8rem;">③ 「전자상거래 등에서의 소비자보호에 관한 법률」 제17조 제2항 제5호에 따라, 복제 가능한 디지털 콘텐츠의 경우 소비자의 청약철회권이 제한될 수 있습니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">예외적 처리 사항</div>
-    <p style="margin-bottom:.4rem;">① 결제 오류 또는 이중 결제가 발생한 경우: 확인 후 처리</p>
-    <p style="margin-bottom:.8rem;">② 서비스 장애로 콘텐츠를 전혀 제공받지 못한 경우: 운영자 확인 후 개별 안내</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">문의처</div>
-    <p style="margin-bottom:.4rem;">이메일: dreamm042@naver.com</p>
-    <p style="margin-bottom:.4rem;">전화: 010-9425-7691</p>
-    <p style="margin-bottom:.8rem;">결제·서비스 관련 문의는 위 연락처로 접수하시면 영업일 기준 1~2일 이내 안내드립니다.</p>
-
-    <div style="font-size:13px;font-weight:700;color:#A08060;margin:1rem 0 .4rem;letter-spacing:1px;">정기결제 안내</div>
-    <p>본 서비스는 정기결제(구독) 방식이 아닌 1회 단건 결제 방식으로 운영됩니다. 자동 결제 및 정기 청구는 발생하지 않습니다.</p>
-  </div>
-
-  <div style="text-align:center;font-size:11px;color:#4A3A28;letter-spacing:2px;padding-top:1rem;border-top:1px solid rgba(200,150,12,.1);">
-    © 2026 엔젤벨 · 황금돼지 사주 · 사업자등록번호 893-47-01236
-  </div>
-
 </div>
 
 
@@ -1185,32 +1124,33 @@ body.has-results{padding-bottom:64px;}
 <div class="fixed-cta" id="fixed-cta">
   <div class="fixed-cta-inner">
     <div class="fixed-cta-timer">
-      <div class="fixed-cta-timer-label">이 가격 종료까지</div>
-      <div class="fixed-cta-timer-val" id="cta-timer">--:--</div>
+      <div class="fixed-cta-timer-label">🐷 황금돼지</div>
+      <div class="fixed-cta-timer-val" id="cta-timer" style="font-size:13px;letter-spacing:1px;">봉인 중</div>
     </div>
     <div class="fixed-cta-divider"></div>
     <div class="fixed-cta-text">
-      <div class="fixed-cta-text-title">전체 풀이 열람권</div>
-      <div class="fixed-cta-text-sub">₩ 7,900 · 1회 열람</div>
+      <div class="fixed-cta-text-title">재물을 바치면 운명이 열립니다</div>
+      <div class="fixed-cta-text-sub">동전 하나가 운명을 바꿉니다</div>
     </div>
-    <button class="fixed-cta-btn" onclick="unlock('card')">지금 열람하기</button>
+    <button class="fixed-cta-btn" onclick="document.getElementById('purchase-panel').scrollIntoView({behavior:'smooth'})">재물 바치기</button>
   </div>
 </div>
 
 <div class="toast" id="toast">전체 풀이가 공개되었습니다</div>
 
-<!-- 결제완료 안내 모달 -->
+<!-- 봉인 해제 안내 모달 -->
 <div class="unlock-modal-bg" id="unlock-modal-bg">
   <div class="unlock-modal">
-    <div class="unlock-modal-icon">🔓</div>
-    <div class="unlock-modal-title">봉인이 해제되었습니다</div>
-    <div style="font-size:15px;font-weight:700;letter-spacing:2px;color:#D9534F;margin-bottom:.9rem;">⚠️ 주의</div>
+    <div class="unlock-modal-icon">🐷</div>
+    <div class="unlock-modal-title">황금돼지가 봉인을 열었습니다</div>
+    <div style="font-size:15px;font-weight:700;letter-spacing:2px;color:#C8960C;margin-bottom:.9rem;">✨ 재물의 기운이 흐릅니다</div>
     <div class="unlock-modal-body">
-      본 사주 풀이는 <strong>열람 시점의 날짜·시각·생년월일</strong>을 실시간으로 대입하여 생성됩니다.<br><br>
-      페이지를 새로고침 시 <strong>재결제가 필요합니다.</strong><br><br>
+      황금돼지가 당신의 <strong>사주팔자 전체 풀이</strong>를 이제 공개합니다.<br><br>
+      이 풀이는 <strong>열람 시점의 날짜·시각</strong>을 기준으로 생성되며,<br>
+      페이지를 새로고침 하면 <strong>다시 봉인됩니다.</strong><br><br>
       📸 지금 바로 <strong>화면을 캡처하거나 스크롤하며 저장</strong>해두시길 권장합니다.
     </div>
-    <button class="unlock-modal-confirm" onclick="document.getElementById('unlock-modal-bg').classList.remove('show');setTimeout(()=>{const t=document.getElementById('block-invest');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},200);">확인했습니다</button>
+    <button class="unlock-modal-confirm" onclick="document.getElementById('unlock-modal-bg').classList.remove('show');setTimeout(()=>{const t=document.getElementById('block-invest');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},200);">운명을 확인합니다</button>
   </div>
 </div>
 <div class="scroll-nudge" id="scroll-nudge">
@@ -2692,8 +2632,8 @@ function readFortune() {
   document.body.classList.add('has-results');
 }
 
-/* ── 콘텐츠 실제 해제 (결제 성공 후 호출) ── */
-function _doUnlock() {
+/* ── 잠금 해제 ── */
+function unlock() {
   if (unlocked) return;
   unlocked = true;
 
@@ -2725,85 +2665,6 @@ function _doUnlock() {
   if (modal) modal.classList.add('show');
 
   renderReviewForm();
-}
-
-/* ── 잠금 해제 (결제 진입점) ── */
-const _PG_CHANNELS = {
-  card:   { storeId: 'store-13620101-983c-46a5-a9eb-83a780ba38e7',  channelKey: 'channel-key-f0d56ca7-a576-4081-bf32-b15e71e37845', payMethod: 'CARD' },
-  inicis: { storeId: 'store-13620101-983c-46a5-a9eb-83a780ba38e7',    channelKey: 'channel-key-bcab7d49-37ae-4d08-81dd-bd7fded65a0c', payMethod: 'CARD' },
-  kakao:  { storeId: 'store-13620101-983c-46a5-a9eb-83a780ba38e7',    channelKey: 'channel-key-235a21d5-18cf-4afa-8322-5b5667564031', payMethod: 'EASY_PAY', easyPayProvider: 'KAKAOPAY' },
-};
-
-function _getPayerId() {
-  let id = localStorage.getItem('saju_payer_id');
-  if (!id) { id = 'anon-' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('saju_payer_id', id); }
-  return _authUser ? _authUser.uid : id;
-}
-
-async function unlock(pg) {
-  if (unlocked) return;
-  const pgKey = pg || 'card';
-
-  const uid = _getPayerId();
-
-  // 이미 결제한 유저라면 바로 해제
-  try {
-    const doc = await _db.collection('payments').doc(uid).get();
-    if (doc.exists && doc.data().paid) {
-      _doUnlock();
-      return;
-    }
-  } catch(e) {}
-
-  // 포트원 V2 결제 요청
-  if (typeof PortOne === 'undefined') {
-    alert('결제 모듈 로딩 실패. 페이지를 새로고침 후 다시 시도해주세요.');
-    return;
-  }
-
-  const ch = _PG_CHANNELS[pgKey] || _PG_CHANNELS.card;
-  const paymentId = `saju${Date.now()}`;
-  try {
-    const customer = { customerId: uid.slice(0, 20) };
-    if (pgKey === 'inicis') {
-      const email = (_authUser && _authUser.email) || window.prompt('이메일을 입력해주세요');
-      if (!email) return;
-      const phone = window.prompt('휴대폰 번호를 입력해주세요 (예: 01012345678)');
-      if (!phone) return;
-      customer.email = email;
-      customer.phoneNumber = phone;
-    }
-
-    const payParams = {
-      storeId: ch.storeId,
-      channelKey: ch.channelKey,
-      paymentId,
-      orderName: '황금돼지 사주 전체 풀이',
-      totalAmount: 7900,
-      currency: 'KRW',
-      payMethod: ch.payMethod,
-      customer,
-    };
-    if (ch.easyPayProvider) payParams.easyPay = { easyPayProvider: ch.easyPayProvider };
-    const response = await PortOne.requestPayment(payParams);
-
-    if (response && !response.code) {
-      await _db.collection('payments').doc(uid).set({
-        paid: true,
-        paymentId,
-        pg: pgKey,
-        paidAt: firebase.firestore.FieldValue.serverTimestamp(),
-      }, { merge: true });
-      _doUnlock();
-    } else {
-      const msg = (response && response.message) ? response.message : '결제가 취소되었습니다.';
-      alert(msg);
-    }
-  } catch(err) {
-    const msg = err && (err.message || JSON.stringify(err));
-    alert('결제 오류: ' + msg);
-    console.error('[결제오류]', err);
-  }
 }
 
 const firebaseConfig = {
@@ -2896,11 +2757,20 @@ async function loginWith() {
 function renderReviewForm() {
   const area = document.getElementById('review-form-area');
   if (!area) return;
+  const ctaBlock = `<div style="background:rgba(200,150,12,.08);border:1px solid rgba(200,150,12,.25);border-radius:8px;padding:1.2rem 1.4rem;margin-bottom:1.4rem;text-align:center;">
+    <div style="font-size:15px;font-weight:700;color:var(--g2);letter-spacing:2px;margin-bottom:.6rem;">열람 후 황금돼지에게 제물을 올려보세요</div>
+    <div style="font-size:13px;color:var(--i3);letter-spacing:1px;margin-bottom:1rem;">황금돼지의 기운이 당신 곁에 머뭅니다</div>
+    <div style="font-size:13px;color:#A08060;line-height:2;">
+      <div style="color:#C8960C;font-weight:900;letter-spacing:2px;">카카오뱅크</div>
+      <div style="color:#E8D080;font-size:16px;font-weight:900;letter-spacing:3px;">[계좌번호]</div>
+      <div style="color:#8B7355;font-size:12px;">예금주 · 황금돼지 사주</div>
+    </div>
+  </div>`;
   if (!_authUser) {
-    area.innerHTML = `<div class="review-need-login">리뷰를 남기려면 <a onclick="document.getElementById('auth-modal-bg').classList.add('show')">로그인</a>이 필요합니다.</div>`;
+    area.innerHTML = ctaBlock + `<div class="review-need-login">리뷰를 남기려면 <a onclick="document.getElementById('auth-modal-bg').classList.add('show')">로그인</a>이 필요합니다.</div>`;
     return;
   }
-  area.innerHTML = `
+  area.innerHTML = ctaBlock + `
     <div class="review-form-card">
       <div class="review-form-title">별점 & 한마디</div>
       <div class="star-row" id="star-row">
