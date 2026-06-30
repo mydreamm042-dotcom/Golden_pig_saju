@@ -2843,6 +2843,7 @@ function _incrementAndWatchVisitors() {
 
 document.addEventListener('DOMContentLoaded', () => {
   _renderReviewList(_DEMO_REVIEWS);
+  _incrementAndWatchVisitors();
   _auth.onAuthStateChanged(user => {
     _authUser = user;
     updateAuthUI();
